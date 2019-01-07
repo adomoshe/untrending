@@ -1,0 +1,20 @@
+{
+  "name": "inverse-news-app",
+  "version": "1.0.0",
+  "description": "Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adomoshe/inverse-news-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adomoshe/inverse-news-app/issues"
+  },
+  "homepage": "https://github.com/adomoshe/inverse-news-app#readme"
+}
