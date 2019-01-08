@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/adomoshe/inverse-news-app/issues"
   },
-  "homepage": "https://github.com/adomoshe/inverse-news-app#readme"
+  "homepage": "https://github.com/adomoshe/inverse-news-app#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "sequelize": "^4.42.0"
+  }
 }
