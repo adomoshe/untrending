@@ -5,7 +5,7 @@ if (process.env.JAWSDB_URL) {
 } else {
     connection = mysql.createConnection({
         host: 'localhost',
-        port: 5000,
+        port: 3306,
         user: 'root',
         password: '',
         database: 'untrending_db'
