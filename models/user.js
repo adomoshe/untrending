@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
-    date_created DATETIME NOT NULL,
+    created: DataTypes.DATE
   });
   return User;
 };
