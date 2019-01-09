@@ -1,7 +1,7 @@
 'use strict';
 
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -10,12 +10,13 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(
   new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://www.example.com/auth/google/callback'
+      clientID: "396539955261-n1tkjcso5isshfmrg2jovcn9pqkvei26.apps.googleusercontent.com",
+      clientSecret: "kUQM0DedqU5FwRNQ_zRPQ9xq",
+      callbackURL: 'http://localhost:5000/homepage' || 'http://www.example.com/auth/google/callback',
+      passReqToCallback   : true
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOrCreate({ googleId: profile.id }, (err, user) => {
+    function(request, accessToken, refreshToken, profile, done) {
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
         return done(err, user);
       });
     }
