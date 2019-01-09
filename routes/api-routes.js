@@ -1,7 +1,7 @@
 'use strict';
 // Requiring our models and passport as we've configured it
 const db = require('../models');
-const passport = require('../config/passport');
+// const passport = require('../config/passport');
 
 module.exports = app => {
   // Using the passport.authenticate middleware with our Google strategy.
@@ -21,28 +21,28 @@ module.exports = app => {
 //   });
 
 //   // Route for getting some data about our user to be used client side
-//   app.get('/api/user_data', (req, res) => {
-//     if (!req.user) {
-//       // The user is not logged in, send back an empty object
-//       res.json({});
-//     } else {
-//       res.json({
-//         displayName: req.user.displayName || req.displayName,
-//         id: req.user.id || req.id,
-//         givenName: req.user.givenName || req.givenName,
-//         familyName: req.user.familyName || req.familyName,
-//         emails: req.user.emails || req.emails,
-//         photos: req.user.photos || req.photos
-//       });
-//     }
-//   });
+  app.get('/api/user_data', (req, res) => {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      res.json({
+        displayName: req.user.displayName || req.displayName,
+        id: req.user.id || req.id,
+        givenName: req.user.givenName || req.givenName,
+        familyName: req.user.familyName || req.familyName,
+        emails: req.user.emails || req.emails,
+        photos: req.user.photos || req.photos
+      });
+    }
+  });
 
   // GET /auth/google
   //   Use passport.authenticate() as route middleware to authenticate the
   //   request.  The first step in Google authentication will involve
   //   redirecting the user to google.com.  After authorization, Google
   //   will redirect the user back to this application at /auth/google/callback
-  
+
   app.get(
     '/auth/google',
     passport.authenticate('google', {
