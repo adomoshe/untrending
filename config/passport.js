@@ -3,7 +3,7 @@
 require('dotenv').config()
 const passport = require('passport');
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
-const User = require('../models/user.js');
+const db = require('../models');
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -18,9 +18,19 @@ passport.use(
       passReqToCallback   : true
     },
     function(request, accessToken, refreshToken, profile, done) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return done(err, user);
-      });
+      console.log(profile)
+      db.User.findOrCreate({
+        where: {
+          username: profile.displayName
+        },
+        defaults: {
+          username: profile.displayName
+        }
+      }).then(function(user, err){
+        // console.log(user);
+        // console.log(err)
+        return done(err, user)
+      })
     }
   )
 );

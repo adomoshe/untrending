@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
-    created: DataTypes.DATE
+    googleId: DataTypes.BIGINT
   });
   return User;
 };
