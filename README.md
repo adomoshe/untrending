@@ -5,7 +5,8 @@ Full-stack news app that displays news opposite to what the user would typically
 
 ### Purpose:
 
-	unTrending is an application that gives its user access to news from a variety of outlets. The media often presents biased information as fact, something that people are becoming more aware of nowadays than they had been before. unTrending aims to show a multitude of perspectives of the same news event so that the user can have an informed view of the world. 
+	 unTrending is an application that gives its user access to news from a variety of outlets. 
+     The media often presents biased information as fact, something that people are becoming more aware of nowadays than they had been before. unTrending aims to show a multitude of perspectives of the same news event so that the user can have an informed view of the world. 
 
 ### APIs Used:
     - News API
@@ -22,7 +23,7 @@ Full-stack news app that displays news opposite to what the user would typically
 ### Outline of Data-Sorting Algorithm for Categorization:
     
 
-**Creators**
+### Creators:  
     Ado Moshe
     Sherrie Lin
     Albert Shay
