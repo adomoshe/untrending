@@ -1,7 +1,9 @@
 'use strict';
 
+require('dotenv').config()
 const passport = require('passport');
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const User = require('../models/user.js');
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -10,9 +12,9 @@ const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "396539955261-n1tkjcso5isshfmrg2jovcn9pqkvei26.apps.googleusercontent.com",
-      clientSecret: "kUQM0DedqU5FwRNQ_zRPQ9xq",
-      callbackURL: 'http://localhost:5000/homepage' || 'http://www.example.com/auth/google/callback',
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://localhost:5000/auth/google/callback',
       passReqToCallback   : true
     },
     function(request, accessToken, refreshToken, profile, done) {
