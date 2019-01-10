@@ -11,10 +11,15 @@ Full-stack news app that displays news opposite to what the user would typically
     - Apple News API
 
 ### Additional Outside Sources Implemented:
+    -express
+    -handlebars
+    -sequelize
+    -mySQL2
+    -passport-google-oauth2
 
 ### Outline of Data-Sorting Algorithm for Categorization:
 
-**Creators**
+### Creators:  
     Ado Moshe
     Sherrie Lin
     Albert Shay
