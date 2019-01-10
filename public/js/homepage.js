@@ -89,7 +89,11 @@ var url = 'https://newsapi.org/v2/everything?' +
 
 
 
+<<<<<<< HEAD
+///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
+=======
 ///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
 
 
 ///code algorithm here///
+>>>>>>> 490df8ada71f7a0a0642aae8984eb1e64f4c7c85
