@@ -2,9 +2,9 @@
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-  $.get('/api/user_data').then(data => {
-    $('.username').text(data.displayName);
-  });
+  // $.get('/api/user_data').then(data => {
+  //   $('.username').text(data.displayName);
+  // });
 });
 
 
@@ -89,4 +89,11 @@ var url = 'https://newsapi.org/v2/everything?' +
 
 
 
+<<<<<<< HEAD
 ///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
+=======
+///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
+
+
+///code algorithm here///
+>>>>>>> 490df8ada71f7a0a0642aae8984eb1e64f4c7c85
