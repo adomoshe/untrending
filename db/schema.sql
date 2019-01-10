@@ -28,7 +28,7 @@ CREATE TABLE categories (
     PRIMARY KEY(id)
 );
 
-INSERT INTO users VALUES ("sherrielin", "Sherrie", "Lin");
+INSERT INTO users VALUES ("adomoshe", "Ado", "Moshe");
 INSERT INTO categories VALUES (true, false, false, true, true, true, false, false, false);
 
 SELECT * FROM users;
