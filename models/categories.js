@@ -2,15 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
     const Categories = sequelize.define('Categories', {
-      world: DataTypes.BOOLEAN,
-      politics: DataTypes.BOOLEAN,
-      economy: DataTypes.BOOLEAN,
       business: DataTypes.BOOLEAN,
-      tech: DataTypes.BOOLEAN,
-      markets: DataTypes.BOOLEAN,
-      sports: DataTypes.BOOLEAN,
-      us: DataTypes.BOOLEAN,
       entertainment: DataTypes.BOOLEAN,
+      general: DataTypes.BOOLEAN,
+      health: DataTypes.BOOLEAN,
+      science: DataTypes.BOOLEAN,
+      sports: DataTypes.BOOLEAN,
+      technology: DataTypes.BOOLEAN,
       created: DataTypes.DATE
     });
   
