@@ -13,6 +13,7 @@ var manipulateData;
 
 ///                 TOP HEADLINES                    ///
 var frontPage;
+var articleHolder = [];
 var queryURL = 'https://newsapi.org/v2/top-headlines?' +
     'country=us&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
@@ -29,58 +30,131 @@ $.ajax({
 });
 
 function processData(data) {
-    // var articleItems = [];
+    console.log(data);
 
     for (var i = 0; i < data.articles.length; i++) {
 
         var title = data.articles[i].title;
-        console.log(title);
+        // console.log(title);
 
         var subtitle = data.articles[i].description;
-        console.log(subtitle);
+        // console.log(subtitle);
 
         var date = data.articles[i].publishedAt;
-        console.log(date);
+        // console.log(date);
 
         var blurb = data.articles[i].content;
-        console.log(blurb);
+        // console.log(blurb);
 
         var artUrl = data.articles[i].url;
         console.log(artUrl);
+        
 
+        // var fullArt = data.articles[i].content;
+        // console.log(fullArt)
+
+        
         var $title = $("<a href=" + artUrl + '><div class="title">' + title + "</div ></a>");
-        var $date = $('<div class="date">Date: ' + date + "</div >");
-        var $subtitle = $("<a href=" + artUrl + '><div class="description">' + subtitle + "</div ></a>");
+        var $date = $('<div class="date"><mark>PUBLISHED AT: ' + date + "<mark></div >");
+        var $subtitle = $('<div class="subtitle">' + subtitle + "</div >");
         var $blurb = $('<div class="blurb">' + blurb + "</div >");
-        $(".front-page-feed").append($title, $subtitle, $date, $blurb);
-        console.log(artUrl);
+        var $artUrl = $("<a href=" + artUrl + ">READ ARTICLE</a>")
+
+
+
+
+        articleHolder.push(
+            {
+                title: $title,
+                date: $date,
+                subtitle: $subtitle,
+                blurb: $blurb,
+                arturl: $artUrl,
+                id: i   
+            }
+        )
+       
     }
+
 
     for (var i = 0; i < data.articles.length; i++) {
         var thumbnail = data.articles[i].urlToImage;
         console.log(thumbnail);
 
-        var $thumbnail = $("<img class ='thumbnail' src=" + thumbnail + ">")
+        var $thumbnail = $(`<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`)
 
         $(".thumbnail-feed").append($thumbnail)
     }
+
+
+    $(".thumbnail").mouseover(function () {
+        $(".front-page-feed").empty();
+        var id = $(this).attr("data-article");
+        console.log(id)
+        articleHolder.forEach(function(article){
+            // console.log(article.id)
+
+
+            
+            if(id == article.id){
+                console.log(article)
+                $(".front-page-feed").append(article.title, article.date, article.subtitle, article.blurb, article.arturl);
+            }
+        })
+        // $(".front-page-feed").append($title, $subtitle, $date, $blurb);
+    })
+
+
 }
+
+$(document).ready(function() {
+    $(".unfold-nav").hide();
+})
+
+
+$(".fold-nav").mouseover(function() {
+    // show active categories from user database
+   $("#fold-nav-line").hide();
+   $(".unfold-nav").show();
+    console.log("hovering!");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///                 SEARCH QUERY                   ///
 var search
-
 var url = 'https://newsapi.org/v2/everything?' +
-          'q='+ search +'&' +
-          'from=2019-01-10&' +
-          'sortBy=popularity&' +
-          'apiKey=abf7b2766a1549eca7580d1b261d5838';
+    'q=' + search + '&' +
+    'from=2019-01-10&' +
+    'sortBy=popularity&' +
+    'apiKey=abf7b2766a1549eca7580d1b261d5838';
 
-// on click of submit button, user input = search, and call processData. 
+//pseuocode: on click of submit button, user input = search, and call processData. 
 
 // search = $("#search-input").val();
 // console.log(search);
 
-//
+
+
+
+
+
+
+
+
+///              FILTERING ALGORITHM                   ///
 
 
 
