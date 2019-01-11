@@ -1,19 +1,27 @@
 'use strict';
 $(document).ready(() => {
+  $('#categories-submit').on('click', event => {
+    event.preventDefault();
+    const categories = {
+      business: $('#business').prop('checked'),
+      entertainment: $('#entertainment').prop('checked'),
+      health: $('#health').prop('checked'),
+      science: $('#science').prop('checked'),
+      sports: $('#sports').prop('checked'),
+      technology: $('#technology').prop('checked')
+    };
+    registerUser(categories);
+  });
 
-  $('#categories-submit').on('click', )
-
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
-  function loginUser(email, password) {
-    $.post("/api/login", {
-      email: email,
-      password: password
-    }).then(function(data) {
-      window.location.replace(data);
-      // If there's an error, log the error
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
-
+  const registerUser = categories => {
+    $.post('/api/categories', {
+      categories
+    })
+      .then(data => {
+        console.log('Registered user');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 });
