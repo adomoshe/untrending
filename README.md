@@ -33,7 +33,9 @@ Full-stack news app that displays news opposite to what the user would typically
     - passport-google-oauth2
 
 
+
 ### Outline of Data-Sorting Algorithm for Categorization:
+    
 
     
 ### Running the tests:
