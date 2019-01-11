@@ -4,7 +4,11 @@ $(document).ready(() => {
   $.get('/api/user').then(data => {
     const $header = $('#btn-insert');
     if (data) {
-      console.log('User logged in: information ', data);
+        console.log(data)
+        // Below is our user object
+        console.log(data.user)
+        // Below is our categories object for the above user
+        console.log(data.categories)
       const $logout = $('<a>');
       $logout.attr('class', 'navbar-brand');
       $logout.attr('id', 'logout-button');

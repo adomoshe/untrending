@@ -39,12 +39,12 @@ module.exports = app => {
   app.get('/api/user', (req, res) => {
     console.log('in app.get api/user');
     if (req.session.passport && req.user) {
-      console.log(req.session.passport);
+      console.log('req.session.passport ', req.session.passport);
       db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
         categories => {
           res.json({
-            User: req.user.dataValues,
-            Categories: categories
+            user: req.user.dataValues,
+            categories: categories
           });
         }
       );
@@ -82,6 +82,10 @@ module.exports = app => {
   // Route for logging user out
   app.get('/logout', (req, res) => {
     req.logout();
+    res.redirect('/');
+  });
+
+  app.get('*', (req, res) => {
     res.redirect('/');
   });
 };
