@@ -23,6 +23,10 @@ module.exports = app => {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get('/homepage', (req, res) => {
       console.log('In html app.get /homepage');
+      console.log(req.body)
+      console.log(req.session)
+      console.log(req.session.passport.user)
+      console.log(req.user.dataValues)
     res.sendFile(path.join(__dirname, '../public/homepage.html'));
   });
 };

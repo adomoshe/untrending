@@ -1,9 +1,19 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 const passport = require('passport');
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const db = require('../models');
+
+passport.serializeUser((user, done) => {
+  done(null, user[0].dataValues.googleId);
+});
+
+passport.deserializeUser((id, done) => {
+  db.User.findOne({ where: { googleId: id } }).then(user => {
+    done(null, user);
+  });
+});
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -15,22 +25,31 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'http://localhost:5000/auth/google/callback',
-      passReqToCallback   : true
+      passReqToCallback: true
     },
-    function(request, accessToken, refreshToken, profile, done) {
-      console.log(profile)
+    (request, accessToken, refreshToken, profile, done) => {
+      console.log(profile);
       db.User.findOrCreate({
         where: {
-          username: profile.displayName
+          googleId: profile.id,
+          username: profile.displayName,
+          firstname: profile.name.givenName,
+          lastname: profile.name.familyName
         },
         defaults: {
-          username: profile.displayName
+          googleId: profile.id,
+          username: profile.displayName,
+          firstname: profile.name.givenName,
+          lastname: profile.name.familyName
         }
-      }).then(function(user, err){
-        // console.log(user);
-        // console.log(err)
-        return done(err, user)
       })
+        .then((user, err) => {
+          console.log('then user', user);
+          return done(null, user);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   )
 );

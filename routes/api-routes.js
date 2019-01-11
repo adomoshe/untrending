@@ -2,7 +2,7 @@
 // Requiring our models and passport as we've configured it
 const db = require('../models');
 const passport = require('../config/passport.js');
-// const passport = require('../config/passport');
+const isAuthenticated = require('../config/middleware/isAuthenticated');
 
 module.exports = app => {
   // Using the passport.authenticate middleware with our Google strategy.
@@ -16,10 +16,10 @@ module.exports = app => {
     });
 
   //   // Route for logging user out
-  //   app.get('/logout', (req, res) => {
-  //     req.logout();
-  //     res.redirect('/');
-  //   });
+    app.get('/logout', (req, res) => {
+      req.logout();
+      res.redirect('/');
+    });
 
   //   // Route for getting some data about our user to be used client side
 //   app.get('/api/homepage', (req, res) => {
@@ -42,23 +42,16 @@ module.exports = app => {
 
   app.get(
     '/auth/google',
-    passport.authenticate('google', {
-      scope: [
-        'https://www.googleapis.com/auth/plus.login',
-        'https://www.googleapis.com/auth/plus.profile.emails.read'
-      ]
-    })
+    passport.authenticate('google', { scope: ['profile'] })
   );
 
   app.get(
     '/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/homepage',
-      failureRedirect: '/login'
-    }),
+    passport.authenticate('google'),
     (req, res) => {
       console.log('in app.get api /auth/google/homepage redirect to /homepage');
-      console.log(res)
+    //   req.session.user = req.user;
+      
     //   console.log(res.displayName);
     //   console.log(res.user.displayName || res.displayName);
     //   console.log(res.user.id || res.id);
