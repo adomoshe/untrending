@@ -117,7 +117,7 @@ function commonView(manipulateData){
 }
 
 function mixSearchResults(manipulateData){
-//manipulate if there is time 
+    //manipulate if there is time 
 
     return manipulateData;
 }
