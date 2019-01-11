@@ -16,11 +16,9 @@ Full-stack news app that displays news opposite to what the user would typically
 ## Functionality
 
 ### APIs Used:
-<<<<<<< HEAD
-    - News API
-=======
     - Apple News API 
-
+     - REST countries API
+          for translating countries to 2-string codes
 
 ### Built With:
 
@@ -34,7 +32,6 @@ Full-stack news app that displays news opposite to what the user would typically
     - sequelize
     - mySQL2
     - passport-google-oauth2
->>>>>>> 76d68ae8c910d699b5afe9c75ca732244a5e624f
 
 
 

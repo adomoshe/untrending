@@ -38,17 +38,19 @@ CREATE TABLE ratingSitesUS (
 
 CREATE TABLE foreignAffairSites (
     id INT(5) NOT NULL AUTO_INCREMENT,
-    siteId VARCHAR (20) NOT NULL, 
-    conservativeRating INT NOT NULL, 
-    reliaibityRating INT NOT NULL,
+    keyWord VARCHAR (20) NOT NULL,
+    siteIds INT NOT NULL,
     PRIMARY KEY (id)
 );
+
 
 INSERT INTO users VALUES ("adomoshe", "Ado", "Moshe");
 INSERT INTO categories VALUES (true, false, false, true, true, true, false, false, false);
 
 SELECT * FROM users;
 SELECT * FROM categories;
+
+/* Inserts site rating data points */
 
 INSERT INTO ratingSites VALUES ("techcrunch", 2, 2);
 INSERT INTO ratingSites VALUES ("abc-news", 2, 2);
@@ -94,3 +96,20 @@ INSERT INTO ratingSites VALUES ("daily-mail", 2, 2);
 INSERT INTO ratingSites VALUES ("the-hill", 2, 2);
 INSERT INTO ratingSites VALUES ("cbc", 2, 2);
 INSERT INTO ratingSites VALUES ("the-telegraph", 2, 2);
+
+/* adds key words and association to sites with each key word*/
+
+INSERT INTO keyWord VALUES ("islam", 2);
+INSERT INTO keyWord VALUES ("middle east", 2);
+INSERT INTO keyWord VALUES ("palestine", 2);
+INSERT INTO keyWord VALUES ("syria", 2);
+INSERT INTO keyWord VALUES ("syrian", 2);
+INSERT INTO keyWord VALUES ("gaza", 2);
+INSERT INTO keyWord VALUES ("china", 2);
+INSERT INTO keyWord VALUES ("foreign", 2);
+INSERT INTO keyWord VALUES ("UN", 2);
+INSERT INTO keyWord VALUES ("climate", 2);
+INSERT INTO keyWord VALUES ("species", 2);
+INSERT INTO keyWord VALUES ("border wall", 2);
+INSERT INTO keyWord VALUES ("mexico", 2);
+INSERT INTO keyWord VALUES ("islam", 2);

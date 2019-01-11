@@ -1,10 +1,6 @@
 
 'use strict';
 
-
-
-
-
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
@@ -73,6 +69,19 @@ function processData(data) {
 
 ///                 SEARCH QUERY                   ///
 var search
+
+var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
+var countryRef = ""
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+        error: function () {
+            console.log("error");
+        },
+        success: function (data) {
+            countryRef = data[0].alpha2Code;
+        }
+    });
 
 var url = 'https://newsapi.org/v2/everything?' +
           'q='+ search +'&' +
