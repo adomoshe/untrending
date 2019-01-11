@@ -5,38 +5,52 @@ const passport = require('../config/passport.js');
 const isAuthenticated = require('../config/middleware/isAuthenticated');
 
 module.exports = app => {
-
-    app.post('/api/categories', (req, res) => {
-        console.log(req.body);
-        if(req.session.passport) {
-            console.log(req.user.dataValues);
-            db.Categories.create({
-                business: req.body.categories.business,
-                entertainment: req.body.categories.business,
-                health: req.body.categories.health,
-                science: req.body.categories.science,
-                sports: req.body.categories.sports,
-                technology: req.body.categories.technology,
-              }).then(function(dbTodo) {
-                // We have access to the new todo as an argument inside of the callback function
-                res.json(dbTodo);
-              });
-            });
-        } else {
-            console.log('Unauthorized access')
+  app.post('/api/categories', (req, res) => {
+    console.log(req.body);
+    if (req.session.passport) {
+      console.log(req.user.dataValues);
+      db.Categories.findOrCreate({
+        where: {
+          UserId: req.user.dataValues.id
+        },
+        defaults: {
+          business: req.body.categories.business,
+          entertainment: req.body.categories.business,
+          health: req.body.categories.health,
+          science: req.body.categories.science,
+          sports: req.body.categories.sports,
+          technology: req.body.categories.technology,
+          UserId: req.user.dataValues.id
         }
-        // console.log(res);
-    })
+      }).then(categories => {
+        console.log(categories);
+        if (categories[1] === 'true') {
+          console.log('Created');
+          res.json('Created');
+        } else {
+          console.log('Found');
+        }
+      });
+    } else {
+      console.log('Unauthorized access');
+    }
+
+  });
+
   // Route for getting some data about our user to be used client side
   app.get('/api/user', (req, res) => {
     console.log('in app.get api/user');
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
+    if (req.session.passport && req.user) {
+      console.log(req.session.passport)
+      db.Categories.findOne({where: { UserId: req.user.dataValues.id }}).then(categories => { 
       res.json({
-        User: req.user.dataValues
+        User: req.user.dataValues,
+        Categories: categories
       });
+    })
+    } else {
+      console.log('User is not logged in')
+      res.json(null);
     }
   });
 
@@ -53,8 +67,8 @@ module.exports = app => {
     }
   );
 
-   // Route for logging user out
-   app.get('/logout', (req, res) => {
+  // Route for logging user out
+  app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
