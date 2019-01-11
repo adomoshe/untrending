@@ -2,7 +2,6 @@
 // Requiring our models and passport as we've configured it
 const db = require('../models');
 const passport = require('../config/passport.js');
-const isAuthenticated = require('../config/middleware/isAuthenticated');
 
 module.exports = app => {
   app.post('/api/categories', (req, res) => {

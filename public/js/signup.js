@@ -11,7 +11,8 @@ $(document).ready(() => {
       technology: $('#technology').prop('checked')
     };
     registerUser(categories);
-    window.location = 'http://localhost:5000/';
+    const path = window.location.href.replace('/signup', '/');
+    window.location.replace(path);
   });
 
   const registerUser = categories => {
