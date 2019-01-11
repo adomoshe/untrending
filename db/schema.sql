@@ -36,10 +36,10 @@ CREATE TABLE ratingSitesUS (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE foreignAffairSites (
+CREATE TABLE keyWord (
     id INT(5) NOT NULL AUTO_INCREMENT,
     keyWord VARCHAR (20) NOT NULL,
-    siteIds INT NOT NULL,
+    siteIds VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -56,10 +56,8 @@ INSERT INTO ratingSites VALUES ("techcrunch", 5, 9);
 INSERT INTO ratingSites VALUES ("abc-news", 5, 9);
 INSERT INTO ratingSites VALUES ("bbc", 4, 8);
 INSERT INTO ratingSites VALUES ("nbc", 5, 9);
-INSERT INTO ratingSites VALUES ("cnn", 2, 2);
 INSERT INTO ratingSites VALUES ("fox-news", 9, 2);
 INSERT INTO ratingSites VALUES ("business-insider", 5, 7);
-INSERT INTO ratingSites VALUES ("cnbc", 0, 2);
 INSERT INTO ratingSites VALUES ("washingtonexaminer", 8, 5);
 INSERT INTO ratingSites VALUES ("the-guardian", 4, 7);
 INSERT INTO ratingSites VALUES ("techradar", 2, 2);
@@ -71,35 +69,29 @@ INSERT INTO ratingSites VALUES ("the-washington-times", 8, 5);
 INSERT INTO ratingSites VALUES ("time", 8, 6);
 INSERT INTO ratingSites VALUES ("vice-news", 6, 2);
 INSERT INTO ratingSites VALUES ("wired", 3, 5);
-INSERT INTO ratingSites VALUES ("usa-today", 5, 8);
 INSERT INTO ratingSites VALUES ("reuters", 6, 9);
-INSERT INTO ratingSites VALUES ("new-york-magazine", 2, 2);
+INSERT INTO ratingSites VALUES ("new-york-post", 7, 3);
 INSERT INTO ratingSites VALUES ("national-geographic", 2, 9);
-INSERT INTO ratingSites VALUES ("msnbc", 2, 2);
-INSERT INTO ratingSites VALUES ("mashable", 2, 2);
-INSERT INTO ratingSites VALUES ("hacker-news", 2, 2);
-INSERT INTO ratingSites VALUES ("google-news", 2, 2);
+INSERT INTO ratingSites VALUES ("msnbc", 3, 5);
+INSERT INTO ratingSites VALUES ("politico", 4, 8);
 INSERT INTO ratingSites VALUES ("fortune", 2, 2);
 INSERT INTO ratingSites VALUES ("espn", 2, 2);
 INSERT INTO ratingSites VALUES ("cbs-news", 6, 8);
 INSERT INTO ratingSites VALUES ("cnn", 4, 5);
 INSERT INTO ratingSites VALUES ("buzzfeed", 3, 4);
-INSERT INTO ratingSites VALUES ("business-insider", 2, 2);
-INSERT INTO ratingSites VALUES ("bleacher-report", 2, 2);
+INSERT INTO ratingSites VALUES ("the-economist", 6, 7);
 INSERT INTO ratingSites VALUES ("bloomberg", 5, 9);
 INSERT INTO ratingSites VALUES ("axios", 4, 8);
 INSERT INTO ratingSites VALUES ("associated-press", 2, 2);
-INSERT INTO ratingSites VALUES ("the-guardian", 2, 2);
-INSERT INTO ratingSites VALUES ("national-review", 2, 2);
+INSERT INTO ratingSites VALUES ("national-review", 7, 7);
 INSERT INTO ratingSites VALUES ("usa-today", 5, 8);
 INSERT INTO ratingSites VALUES ("daily-mail", 7, 2);
 INSERT INTO ratingSites VALUES ("the-hill", 7, 8);
 INSERT INTO ratingSites VALUES ("cbc", 0, 0);
-INSERT INTO ratingSites VALUES ("the-telegraph", 0, 0); 
 
 /* adds key words and association to sites with each key word*/
 
-INSERT INTO keyWord VALUES ("islam", 2);
+INSERT INTO keyWord VALUES ("islam", "");
 INSERT INTO keyWord VALUES ("middle east", 2);
 INSERT INTO keyWord VALUES ("palestine", 2);
 INSERT INTO keyWord VALUES ("syria", 2);
