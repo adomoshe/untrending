@@ -2,20 +2,27 @@
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-  // $.get('/api/user_data').then(data => {
-  //   $('.username').text(data.displayName);
-  // });
+  $.get('/api/user_data').then(data => {
+    $('.username').text(data.displayName);
+  });
 });
 
+var manipulateData;
 
-
-
+function buildQueryURL() {
+var articleItems = [artTitle, artSource, artDescription, datePublished, artContent, artImage, artUrl];
 
 ///                 TOP HEADLINES                    ///
 var frontPage;
+var country;
+var category;
 var queryURL = 'https://newsapi.org/v2/top-headlines?' +
-    'country=us&' +
-    'apiKey=b0c7c3494d7f4f67aab159c80198a834';
+    'country='+ country +'&category=' + category + 
+    '&apiKey=b0c7c3494d7f4f67aab159c80198a834';
+
+    country = $("#country-input").val();
+    category = $("#category-input").val();
+ 
 
 $.ajax({
     url: queryURL,
@@ -29,7 +36,7 @@ $.ajax({
 });
 
 function processData(data) {
-    var articleItems = [artTitle, artSource, artDescription, datePublished, artContent, artImage, artUrl];
+    
 
     for (var i = 0; i < data.articles.length; i++) {
 
@@ -74,16 +81,23 @@ function processData(data) {
     }   
 }
 
+//                         SOURCES QUERY
+var source;
+var queryUrl = 'https://newsapi.org/v2/top-headlines?' + 
+   'sources=' + source + '&apiKey=b0c7c3494d7f4f67aab159c80198a834'
+source = $("#search-input").val();   
+console.log(search);
+
+
+
 
 ///                 SEARCH QUERY                   ///
 var search;
-var url = 'https://newsapi.org/v2/everything?' +
+var queryUrl = 'https://newsapi.org/v2/everything?' +
           'q='+ search +'&' +
           'from=2019-01-10&' +
           'sortBy=popularity&' +
           'apiKey=b0c7c3494d7f4f67aab159c80198a834';
-
-
 
 
 search = $("#search-input").val();
