@@ -15,7 +15,6 @@ $(document).ready(() => {
 
 var manipulateData;
 
-
 ///                 TOP HEADLINES                    ///
 var frontPage;
 var queryURL = 'https://newsapi.org/v2/top-headlines?' +
@@ -99,11 +98,7 @@ function showAlternativeSideNews(manipulateData){
             commonPoints = find CommonViewPointShownRatio(manipulateData)
         else 
             commonPoints = give article a certain point
-
-    using commonPoints -- find articles from sources close the common points, and 1/4 of articles from differing POV
-
     */
-
     return manipulateData;
 }
 
@@ -123,7 +118,7 @@ function commonView(manipulateData){
 }
 
 function mixSearchResults(manipulateData){
-    //manipulate if there is time 
+//manipulate if there is time
 
     return manipulateData;
 }
