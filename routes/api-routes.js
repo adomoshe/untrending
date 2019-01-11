@@ -71,7 +71,6 @@ module.exports = app => {
               if (categories) {
                 res.redirect('/');
               } else {
-                console.log('auth routing', categories);
                 res.redirect('/signup');
               }
             }

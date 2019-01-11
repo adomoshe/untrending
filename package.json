@@ -1,5 +1,5 @@
 {
-  "name": "inverse-news-app",
+  "name": "UnTrending",
   "version": "1.0.0",
   "description": "Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.",
   "main": "server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adomoshe/inverse-news-app.git"
+    "url": "git+https://github.com/adomoshe/untrending.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adomoshe/inverse-news-app/issues"
+    "url": "https://github.com/adomoshe/untrending"
   },
-  "homepage": "https://github.com/adomoshe/inverse-news-app#readme",
+  "homepage": "https://github.com/adomoshe/untrending#readme",
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
