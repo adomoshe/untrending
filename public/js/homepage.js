@@ -1,6 +1,10 @@
 
 'use strict';
 
+
+
+
+
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
@@ -10,6 +14,7 @@ $(document).ready(() => {
 });
 
 var manipulateData;
+
 
 ///                 TOP HEADLINES                    ///
 var frontPage;
@@ -27,6 +32,7 @@ $.ajax({
         processData(data);
     }
 });
+
 
 function processData(data) {
     // var articleItems = [];
