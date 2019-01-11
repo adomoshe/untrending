@@ -34,22 +34,23 @@ module.exports = app => {
     } else {
       console.log('Unauthorized access');
     }
-
   });
 
   // Route for getting some data about our user to be used client side
   app.get('/api/user', (req, res) => {
     console.log('in app.get api/user');
     if (req.session.passport && req.user) {
-      console.log(req.session.passport)
-      db.Categories.findOne({where: { UserId: req.user.dataValues.id }}).then(categories => { 
-      res.json({
-        User: req.user.dataValues,
-        Categories: categories
-      });
-    })
+      console.log(req.session.passport);
+      db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
+        categories => {
+          res.json({
+            User: req.user.dataValues,
+            Categories: categories
+          });
+        }
+      );
     } else {
-      console.log('User is not logged in')
+      console.log('User is not logged in');
       res.json(null);
     }
   });
@@ -63,7 +64,20 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('/signup');
+      db.User.findOne({ where: { googleId: req.session.passport.user } }).then(
+        user => {
+          db.Categories.findOne({ where: { UserId: user.dataValues.id } }).then(
+            categories => {
+              if (categories) {
+                res.redirect('/');
+              } else {
+                console.log('auth routing', categories);
+                res.redirect('/signup');
+              }
+            }
+          );
+        }
+      );
     }
   );
 
