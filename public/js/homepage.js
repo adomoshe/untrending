@@ -141,7 +141,7 @@ function processData(data) {
 
 
 
-
+function search() {
 
 ///                 SEARCH QUERY                   ///
 var search
@@ -164,6 +164,8 @@ var url = 'https://newsapi.org/v2/everything?' +
     'from=2019-01-10&' +
     'sortBy=popularity&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
+
+}
 
 //pseuocode: on click of submit button, user input = search, and call processData. 
 
