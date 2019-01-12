@@ -16,7 +16,7 @@ $(document).ready(() => {
   };
 
 $('#delete-account').on('click', event => {
-    alert('You are about to delete you UnTrending account!');
+    alert('You are about to delete your UnTrending account!');
     $.ajax({
       method: 'DELETE',
       url: '/api/delete-account'
@@ -45,5 +45,7 @@ $('#delete-account').on('click', event => {
     };
     updateCategories(categories);
     alert('Categories have been updated');
+    const path = window.location.href.replace('/profile', '/');
+    window.location.replace(path);
   });
 });
