@@ -1,15 +1,32 @@
-
 'use strict';
-
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  $.get('/api/user_data').then(data => {
-    $('.username').text(data.displayName);
+  $.get('/api/user').then(data => {
+    const $header = $('#btn-insert');
+    if (data) {
+        console.log(data)
+        // Below is our user object
+        console.log(data.user)
+        // Below is our categories object for the above user
+        console.log(data.categories)
+      const $logout = $('<a>');
+      $logout.attr('class', 'navbar-brand');
+      $logout.attr('id', 'logout-button');
+      $logout.html('Logout');
+      $logout.attr('href', '/logout');
+      $header.append($logout);
+    } else {
+      console.log('User not logged in');
+      const $signin = $('<a>');
+      $signin.attr('class', 'navbar-brand');
+      $signin.attr('id', 'signin-button');
+      $signin.html('Sign In With Google');
+      $signin.attr('href', '/auth/google');
+      $header.append($signin);
+    }
   });
 });
 
-var manipulateData;
 
 ///                 TOP HEADLINES                    ///
 var frontPage;
@@ -91,41 +108,27 @@ function processData(data) {
         $(".front-page-feed").empty();
         var id = $(this).attr("data-article");
         console.log(id)
+        
         articleHolder.forEach(function(article){
             // console.log(article.id)
 
 
             
             if(id == article.id){
-                console.log(article)
-                $(".front-page-feed").append(article.title, article.date, article.subtitle, article.blurb, article.arturl);
+
+              
+                var editedBlurb = article.blurb[0].innerText.split('[')[0];
+
+                console.log(editedBlurb);
+                var $editedBlurb = $('<div class="edited-blurb">' + editedBlurb + "</div>")
+                $(".front-page-feed").append(article.title, article.date, article.subtitle, $editedBlurb, article.arturl);
+
             }
         })
-        // $(".front-page-feed").append($title, $subtitle, $date, $blurb);
     })
 
 
 }
-
-$(document).ready(function() {
-    $(".unfold-nav").hide();
-})
-
-
-$(".fold-nav").mouseover(function() {
-    // show active categories from user database
-   $("#fold-nav-line").hide();
-   $(".unfold-nav").show();
-    console.log("hovering!");
-})
-
-
-
-
-
-
-
-
 
 
 
@@ -145,6 +148,17 @@ var url = 'https://newsapi.org/v2/everything?' +
 
 // search = $("#search-input").val();
 // console.log(search);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
