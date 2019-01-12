@@ -15,6 +15,12 @@ $(document).ready(() => {
       $logout.html('Logout');
       $logout.attr('href', '/logout');
       $header.append($logout);
+      const $userInfo = $('<a>');
+      $userInfo.attr('class', 'navbar-brand');
+      $userInfo.attr('id', 'user-info');
+      $userInfo.html(data.user.username);
+      $userInfo.attr('href', '/profile');
+      $header.append($userInfo);
     } else {
       console.log('User not logged in');
       const $signin = $('<a>');

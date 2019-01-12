@@ -6,12 +6,16 @@ const isAuthenticated = require('../config/middleware/isAuthenticated');
 
 module.exports = app => {
 
-  // Here we've add our isAuthenticated middleware to this route.
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/homepage.html'));
+  });
+
+  // Here we've add our isAuthenticated middleware.
   app.get('/signup', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, '../public/signup.html'));
   });
 
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/homepage.html'));
+  app.get('/profile', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/profile.html'));
   });
 };

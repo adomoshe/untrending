@@ -1,5 +1,17 @@
 'use strict';
 $(document).ready(() => {
+  const registerUser = categories => {
+    $.post('/api/categories', {
+      categories
+    })
+      .then(data => {
+        console.log('Registered user');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  
   $('#categories-submit').on('click', event => {
     event.preventDefault();
     const categories = {
@@ -15,15 +27,5 @@ $(document).ready(() => {
     window.location.replace(path);
   });
 
-  const registerUser = categories => {
-    $.post('/api/categories', {
-      categories
-    })
-      .then(data => {
-        console.log('Registered user');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  
 });

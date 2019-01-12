@@ -35,6 +35,52 @@ module.exports = app => {
     }
   });
 
+  app.put('/api/profile', (req, res) => {
+    console.log('in app.put api/profile');
+    if (req.session.passport && req.user) {
+      console.log('req.session.passport ', req.session.passport);
+      console.log(req.body);
+      db.Categories.update(
+        {
+          business: req.body.business,
+          entertainment: req.body.business,
+          health: req.body.health,
+          science: req.body.science,
+          sports: req.body.sports,
+          technology: req.body.technology
+        },
+        {
+          where: {
+            UserId: req.user.dataValues.id
+          }
+        }
+      ).then(categories => {
+        console.log(categories);
+        res.json('Updated');
+      });
+    } else {
+      console.log('User is not logged in');
+      res.json(null);
+    }
+  });
+
+  app.delete('/api/delete-account', (req, res) => {
+    db.User.destroy({
+      where: {
+        id: req.user.dataValues.id
+      }
+    }).then(deletedUser => {
+      // db.Categories.destroy({
+      //   where: {
+      //     UserId: req.user.dataValues.id
+      //   }
+      // }).then(deletedCategories => {
+        console.log('Deleted: ', deletedUser, deletedCategories);
+        res.json(`Deleted ${deletedUser.username} and his/her categories`);
+      });
+    });
+  // });
+
   // Route for getting some data about our user to be used client side
   app.get('/api/user', (req, res) => {
     console.log('in app.get api/user');
