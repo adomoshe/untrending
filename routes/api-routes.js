@@ -5,9 +5,7 @@ const passport = require('../config/passport.js');
 
 module.exports = app => {
   app.post('/api/categories', (req, res) => {
-    console.log(req.body);
     if (req.session.passport) {
-      console.log(req.user.dataValues);
       db.Categories.findOrCreate({
         where: {
           UserId: req.user.dataValues.id
@@ -36,7 +34,6 @@ module.exports = app => {
 
   app.put('/api/profile', (req, res) => {
     if (req.session.passport && req.user) {
-      console.log(req.body);
       db.Categories.update(
         {
           business: req.body.business,
@@ -52,7 +49,6 @@ module.exports = app => {
           }
         }
       ).then(categories => {
-        console.log(categories);
         res.json('Updated');
       });
     } else {
