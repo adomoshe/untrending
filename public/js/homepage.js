@@ -240,6 +240,9 @@ function chooseAlternateCountryViews(manipulateData){
     return manipulateData;
 }
 
+function keyWord(){
+    var querySites = [];
+}
 
 function loosenCategoryParameters(data){
 
