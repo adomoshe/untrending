@@ -122,7 +122,6 @@ function commonView(manipulateData){
                     if one is more frequent then choose that and return (that common point)
             else 
                 return (average);
-                
     */
 }
 
@@ -143,6 +142,9 @@ function chooseAlternateCountryViews(manipulateData){
     return manipulateData;
 }
 
+function keyWord(){
+    var querySites = [];
+}
 
 function loosenCategoryParameters(data){
 
