@@ -15,6 +15,12 @@ $(document).ready(() => {
       $logout.html('Logout');
       $logout.attr('href', '/logout');
       $header.append($logout);
+      const $userInfo = $('<a>');
+      $userInfo.attr('class', 'navbar-brand');
+      $userInfo.attr('id', 'user-info');
+      $userInfo.html(data.user.username);
+      $userInfo.attr('href', '/profile');
+      $header.append($userInfo);
     } else {
       console.log('User not logged in');
       const $signin = $('<a>');
@@ -35,16 +41,16 @@ var queryURL = 'https://newsapi.org/v2/top-headlines?' +
     'country=us&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
 
-$.ajax({
+  $.ajax({
     url: queryURL,
-    method: "GET",
-    error: function () {
-        console.log("error");
+    method: 'GET',
+    error: function() {
+      console.log('error');
     },
-    success: function (data) {
-        processData(data);
+    success: function(data) {
+      processData(data);
     }
-});
+  });
 
 
 function processData(data) {
@@ -96,12 +102,12 @@ function processData(data) {
 
 
     for (var i = 0; i < data.articles.length; i++) {
-        var thumbnail = data.articles[i].urlToImage;
-        console.log(thumbnail);
+      var thumbnail = data.articles[i].urlToImage;
+      // console.log(thumbnail);
 
         var $thumbnail = $(`<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`)
 
-        $(".thumbnail-feed").append($thumbnail)
+      $('.thumbnail-feed').append($thumbnail);
     }
 
 
@@ -139,8 +145,6 @@ function processData(data) {
 
 ///                 SEARCH QUERY                   ///
 var search
-<<<<<<< HEAD
-=======
 
 var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
 var countryRef = ""
@@ -155,7 +159,6 @@ var countryRef = ""
         }
     });
 
->>>>>>> abff458cb2429c245c629a176a26172f8ecaf636
 var url = 'https://newsapi.org/v2/everything?' +
     'q=' + search + '&' +
     'from=2019-01-10&' +
@@ -174,8 +177,10 @@ var url = 'https://newsapi.org/v2/everything?' +
 
 
 
+  // on click of submit button, user input = search, and call processData.
 
 
+  ///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
 
 
 

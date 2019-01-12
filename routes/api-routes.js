@@ -2,70 +2,136 @@
 // Requiring our models and passport as we've configured it
 const db = require('../models');
 const passport = require('../config/passport.js');
-// const passport = require('../config/passport');
 
 module.exports = app => {
-  // Using the passport.authenticate middleware with our Google strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
-    app.post('/api/login', passport.authenticate('google'), (req, res) => {
-      // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-      // So we're sending the user back the route to the members page because the redirect will happen on the front end
-      // They won't get this or even be able to access this page if they aren't authed
-      res.json('/users');
+  app.post('/api/categories', (req, res) => {
+    console.log(req.body);
+    if (req.session.passport) {
+      console.log(req.user.dataValues);
+      db.Categories.findOrCreate({
+        where: {
+          UserId: req.user.dataValues.id
+        },
+        defaults: {
+          business: req.body.categories.business,
+          entertainment: req.body.categories.business,
+          health: req.body.categories.health,
+          science: req.body.categories.science,
+          sports: req.body.categories.sports,
+          technology: req.body.categories.technology,
+          UserId: req.user.dataValues.id
+        }
+      }).then(categories => {
+        console.log(categories);
+        if (categories[1] === 'true') {
+          console.log('Created');
+          res.json('Created');
+        } else {
+          console.log('Found');
+        }
+      });
+    } else {
+      console.log('Unauthorized access');
+    }
+  });
+
+  app.put('/api/profile', (req, res) => {
+    console.log('in app.put api/profile');
+    if (req.session.passport && req.user) {
+      console.log('req.session.passport ', req.session.passport);
+      console.log(req.body);
+      db.Categories.update(
+        {
+          business: req.body.business,
+          entertainment: req.body.business,
+          health: req.body.health,
+          science: req.body.science,
+          sports: req.body.sports,
+          technology: req.body.technology
+        },
+        {
+          where: {
+            UserId: req.user.dataValues.id
+          }
+        }
+      ).then(categories => {
+        console.log(categories);
+        res.json('Updated');
+      });
+    } else {
+      console.log('User is not logged in');
+      res.json(null);
+    }
+  });
+
+  app.delete('/api/delete-account', (req, res) => {
+    db.User.destroy({
+      where: {
+        id: req.user.dataValues.id
+      }
+    }).then(deletedUser => {
+      // db.Categories.destroy({
+      //   where: {
+      //     UserId: req.user.dataValues.id
+      //   }
+      // }).then(deletedCategories => {
+        console.log('Deleted: ', deletedUser, deletedCategories);
+        res.json(`Deleted ${deletedUser.username} and his/her categories`);
+      });
     });
+  // });
 
-  //   // Route for logging user out
-  //   app.get('/logout', (req, res) => {
-  //     req.logout();
-  //     res.redirect('/');
-  //   });
-
-  //   // Route for getting some data about our user to be used client side
-//   app.get('/api/homepage', (req, res) => {
-//     console.log('in app.get api/homepage');
-//     // if (!req.user) {
-//     //   // The user is not logged in, send back an empty object
-//     //   res.json({});
-//     // } else {
-//     res.json({
-//       displayName: res.user.displayName || res.displayName,
-//       id: res.user.id || res.id,
-//       givenName: res.user.givenName || res.givenName,
-//       familyName: res.user.familyName || res.familyName,
-//       emails: res.user.emails || res.emails,
-//       photos: res.user.photos || res.photos
-//     });
-//     console.log(res);
-//     // }
-//   });
+  // Route for getting some data about our user to be used client side
+  app.get('/api/user', (req, res) => {
+    console.log('in app.get api/user');
+    if (req.session.passport && req.user) {
+      console.log('req.session.passport ', req.session.passport);
+      db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
+        categories => {
+          res.json({
+            user: req.user.dataValues,
+            categories: categories
+          });
+        }
+      );
+    } else {
+      console.log('User is not logged in');
+      res.json(null);
+    }
+  });
 
   app.get(
     '/auth/google',
-    passport.authenticate('google', {
-      scope: [
-        'https://www.googleapis.com/auth/plus.login',
-        'https://www.googleapis.com/auth/plus.profile.emails.read'
-      ]
-    })
+    passport.authenticate('google', { scope: ['profile'] })
   );
 
   app.get(
     '/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/homepage',
-      failureRedirect: '/login'
-    }),
+    passport.authenticate('google'),
     (req, res) => {
-      console.log('in app.get api /auth/google/homepage redirect to /homepage');
-      console.log(res)
-    //   console.log(res.displayName);
-    //   console.log(res.user.displayName || res.displayName);
-    //   console.log(res.user.id || res.id);
-    //   console.log(res.user.familyName || res.familyName);
-    //   console.log(res.user.emails || res.emails);
-    //   console.log(res.user.photos || res.photos);
-      res.redirect('/homepage');
+      db.User.findOne({ where: { googleId: req.session.passport.user } }).then(
+        user => {
+          db.Categories.findOne({ where: { UserId: user.dataValues.id } }).then(
+            categories => {
+              if (categories) {
+                res.redirect('/');
+              } else {
+                res.redirect('/signup');
+              }
+            }
+          );
+        }
+      );
     }
   );
+
+  // Route for logging user out
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
+  app.get('*', (req, res) => {
+    res.redirect('/');
+  });
 };
