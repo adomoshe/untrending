@@ -37,9 +37,14 @@ Full-stack news app that displays news opposite to what the user would typically
 
 ### Outline of Data-Sorting Algorithm for Categorization:
     
+<<<<<<< HEAD
+
+    
+=======
  - site search results bring up top results, but also the top results from certain sites depending on whether a key term is hit
  - 
 
+>>>>>>> f6615666a2936e18e40b91622d75d03662460473
 ### Running the tests:
 
 Unit testing & integration testing was informally executed
