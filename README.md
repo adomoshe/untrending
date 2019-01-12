@@ -17,7 +17,8 @@ Full-stack news app that displays news opposite to what the user would typically
 
 ### APIs Used:
     - Apple News API 
-
+     - REST countries API
+          for translating countries to 2-string codes
 
 ### Built With:
 

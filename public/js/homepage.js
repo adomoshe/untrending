@@ -46,6 +46,7 @@ $.ajax({
     }
 });
 
+
 function processData(data) {
     console.log(data);
 
@@ -138,6 +139,23 @@ function processData(data) {
 
 ///                 SEARCH QUERY                   ///
 var search
+<<<<<<< HEAD
+=======
+
+var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
+var countryRef = ""
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+        error: function () {
+            console.log("error");
+        },
+        success: function (data) {
+            countryRef = data[0].alpha2Code;
+        }
+    });
+
+>>>>>>> abff458cb2429c245c629a176a26172f8ecaf636
 var url = 'https://newsapi.org/v2/everything?' +
     'q=' + search + '&' +
     'from=2019-01-10&' +
@@ -170,8 +188,6 @@ var url = 'https://newsapi.org/v2/everything?' +
 
 ///              FILTERING ALGORITHM                   ///
 
-
-
 function showAlternativeSideNews(manipulateData){
 
     /*
@@ -183,11 +199,7 @@ function showAlternativeSideNews(manipulateData){
             commonPoints = find CommonViewPointShownRatio(manipulateData)
         else 
             commonPoints = give article a certain point
-
-    using commonPoints -- find articles from sources close the common points, and 1/4 of articles from differing POV
-
     */
-
     return manipulateData;
 }
 
