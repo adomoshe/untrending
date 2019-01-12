@@ -12,8 +12,7 @@ const db = require('./models');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-// app.use(routes);
-// app.use(session({ secret: 'chicken', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'chicken', secure: 'auto' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
