@@ -3,6 +3,8 @@
 
 Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.
 
+Deployed app: https://untrending.herokuapp.com
+
 ### Purpose:
 
 	 unTrending is an application that gives its user access to news 
