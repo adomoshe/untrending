@@ -3,96 +3,159 @@ form.login {
   margin-top: 50px;
 }
 
+#btn-insert {
+    z-index: 4;
+}
+
 
 .thumbnail-feed {
-  /* position: fixed; */
-  position: absolute;
-  margin-top: 25px;
-  margin-left: 150px;
+    /* position: fixed; */
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 150px;
   }
   
   
-  .front-page-feed {
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 2;
-      position: fixed;
-      width: 50%; 
-      height: 100%;
-      margin-left:50%;
-      margin-top: 0;
-      overflow-y: scroll
-  }
-  
-  .thumbnail {
-      /* padding-left: 500px; */
-      opacity: 0.85;
-      border: 2px solid black;
-      margin-bottom: 30px;
-      width: 50%;
-  }
-  
-  .title { 
-      width: 85%;
-      margin-top: 25px;
-      font-family: retiro-std-24pt, sans-serif; 
-      font-size: 56px;
-      line-height: 0.8;  
-      color: white;
-      text-transform: uppercase;
-  }
-  
-  .date {
-      margin-top: 15px;
-      margin-bottom: 15px;
-      font-family: neue-haas-grotesk-display, sans-serif;
-      /* background-color: white; */
-      color: black;
-      font-size: 14px;
-      font-weight: 600;
-  }
-  
-  mark {
-      background-color: white;
-  }
-  
-  .subtitle {
-      font-family: neue-haas-grotesk-display, sans-serif;
-      line-height: 0.95;
-      color: white;
-      font-size: 24px;
-      font-weight: 400;
-      font-style: italic;
-      text-align: center;
-      width: 85%;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      padding: 15px;
-  }
-  
-  
-  .edited-blurb {
-      font-family: europa, sans-serif;
-      font-weight: 400;   
-      font-style: normal;
-      color: white;
-      width: 85%;
-  }
-  
-  .fold-nav {
-      z-index:2;
-      position: fixed;
-  
-  }
-  
-  #fold-nav-line{
-      width: 225px;
-  
-  }
-  
-  #unfold-nav-logo {
-      width: 225px;
-  
-  }
-  
-  
-  
+.front-page-feed {
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2;
+    position: fixed;
+    width: 50%; 
+    height: 100%;
+    margin-left:50%;
+    margin-top: 0;
+    overflow-y: scroll
+}
+
+.thumbnail {
+    /* padding-left: 500px; */
+    opacity: 0.85;
+    border: 2px solid black;
+    margin-bottom: 30px;
+    width: 50%;
+}
+
+.title { 
+    margin-left: 10px;
+    width: 85%;
+    margin-top: 25px;
+    font-family: retiro-std-24pt, sans-serif; 
+    font-size: 56px;
+    line-height: 0.8;  
+    color: white;
+    text-transform: uppercase;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.title:hover {
+    text-decoration: none;
+
+    transform: translateX(30px)
+}
+
+.date {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: neue-haas-grotesk-display, sans-serif;
+    /* background-color: white; */
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+mark {
+    background-color: white;
+}
+
+.subtitle {
+    margin-left: 10px;
+    font-family: neue-haas-grotesk-display, sans-serif;
+    line-height: 0.95;
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+    width: 85%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 15px;
+}
+
+
+.edited-blurb {
+    font-family: europa, sans-serif;
+    font-weight: 400;   
+    font-style: normal;
+    color: white;
+    width: 85%;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.readarticle {
+    color: white;
+    margin-left: 200px;
+    
+}
+
+
+.readarticle:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.arrow {
+    width: 30px;
+    margin-left: 10px;
+    padding-bottom: 25px;
+}
+
+
+
+.fold-nav {
+    z-index:2;
+    position: fixed;
+
+
+}
+
+.unfold-nav {
+    font-family: neue-haas-grotesk-display, sans-serif;
+    font-weight: bold;
+
+}
+
+#fold-nav-line{
+    width: 225px;
+
+}
+
+#unfold-nav-logo {
+    width: 225px;
+
+}
+
+.categories-list {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.nav-category:hover {
+    transform: translateX(15px);
+    
+}
+
+#x {
+    z-index:3;
+    position: fixed;
+    width: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+

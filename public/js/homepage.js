@@ -1,5 +1,7 @@
 'use strict';
 $(document).ready(() => {
+    $(".unfold-nav").hide();
+    $(".categories-list").hide();
   // This file just does a GET request to figure out which user is logged in
   $.get('/api/user').then(data => {
     const $header = $('#btn-insert');
@@ -33,10 +35,50 @@ $(document).ready(() => {
   });
 });
 
+///                 NAV BAR                 ///
+$("#fold-nav-line").on("click", function() {
+    $("#fold-nav-line").hide();
+    $(".unfold-nav").show();
+
+        $("#unfold-nav-logo").mouseover(function() {
+            $(".categories-list").show();
+
+                $(".nav-category").on("click", function() {
+                        // needs to refilter newsfeed by topic
+                })
+        })
+
+        $("#x").on("click", function() {
+            $("#fold-nav-line").show();
+            $(".unfold-nav").hide();
+            $(".categories-list").hide();
+        })
+
+
+})
+
+// $(".unfold-nav").mouseout(function() {
+//     $("#fold-nav-line").show();
+//     $(".unfold-nav").hide();
+//     $(".categories-list").hide();
+
+// })
+
+
+
+
+
+
 
 ///                 TOP HEADLINES                    ///
+
+
+
+
 var frontPage;
 var articleHolder = [];
+// var headlines = [];
+
 var queryURL = 'https://newsapi.org/v2/top-headlines?' +
     'country=us&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
@@ -82,9 +124,12 @@ function processData(data) {
         var $date = $('<div class="date"><mark>PUBLISHED AT: ' + date + "<mark></div >");
         var $subtitle = $('<div class="subtitle">' + subtitle + "</div >");
         var $blurb = $('<div class="blurb">' + blurb + "</div >");
-        var $artUrl = $("<a href=" + artUrl + ">READ ARTICLE</a>")
-
-
+        var $artUrl = $("<a  href=" + artUrl + "><img class='arrow' src='./assets/readartarrow.png'></a>")
+      
+        
+        // headlines.push(title);
+        // console.log(headlines[20]);
+        // module.exports = {headlines: headlines};
 
 
         articleHolder.push(
@@ -111,6 +156,13 @@ function processData(data) {
     }
 
 
+    // $('.thumbnail').each(function(){
+    //     $(this).parallax("50%", 0.6); 
+    //  });
+
+
+    // $('.thumbnail').parallax({imageSrc: thumbnail});
+
     $(".thumbnail").mouseover(function () {
         $(".front-page-feed").empty();
         var id = $(this).attr("data-article");
@@ -136,6 +188,42 @@ function processData(data) {
 
 
 }
+
+// var x;
+// var index = 0;
+
+// function setup() {
+//     createCanvas(1000, 100);
+//     x = width;
+// }
+
+// function draw() {
+//     background(255);
+//     fill(0);
+  
+//     // Display headline at x  location
+//     // textFont(f,16);        
+//     textAlign(LEFT);
+//     text(headlines[index],x,180); 
+  
+//     // Decrement x
+//     x = x - 3;
+  
+//     // If x is less than the negative width, 
+//     // then it is off the screen
+//     var w = textWidth(headlines[index]);
+//     if (x < -w) {
+//       x = width; 
+//       index = (index + 1) % headlines.length;
+//     }
+//   }
+
+//   setup();
+//   draw();
+
+
+
+
 
 
 

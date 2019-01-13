@@ -1,71 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Sign-up</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="stylesheets/style.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <form>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="business" />
-              <label class="form-check-label" for="business"> Business </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="entertainment"
-              />
-              <label class="form-check-label" for="entertainment">
-                Entertainment
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="health" />
-              <label class="form-check-label" for="health"> Health </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="science" />
-              <label class="form-check-label" for="science"> Science </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="sports" />
-              <label class="form-check-label" for="sports"> Sports </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="technology" />
-              <label class="form-check-label" for="technology">
-                Technology
-              </label>
-            </div>
-            <button
-              id="categories-submit"
-              type="submit"
-              class="btn btn-primary"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
+<head>
+  <title>untrending: sign-up</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://use.typekit.net/yda8anb.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/ctp4rbl.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/bth6xlg.css" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="css/signup.css" />
+</head>
+
+<body>
+
+   
+    <div data-jarallax  class="jarallax">
+        <img class="jarallax-img" src="assets/photo-1519982714547-54ccfb2c121e.jpeg">
+  <div class="text-slides container">
+    <div class="hello">
+      Hello :)
     </div>
-  </body>
-  <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"
-  ></script>
-  <script type="text/javascript" src="js/signup.js"></script>
+    <div class="welcome">
+      Welcome to untrending!
+    </div>
+  </div>
+
+
+  <div class="categories container">
+    <p class="question">Which categories are you interested in?</p>
+    <form class="full-form">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="business" />
+            <label class="form-check-label" for="business"> Business </label>
+          </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="entertainment" />
+        <label class="form-check-label" for="entertainment"> Entertainment </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="health" />
+        <label class="form-check-label" for="health"> Health </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="science" />
+        <label class="form-check-label" for="science"> Science </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="sports" />
+        <label class="form-check-label" for="sports"> Sports </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="technology" />
+        <label class="form-check-label" for="technology">
+          Technology
+        </label>
+      </div>
+      <button id="categories-submit" type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  </div>
+
+  
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+<!-- JAVASCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script> -->
+
+
+<script type="text/javascript" src="js/signup.js"></script>
+
 </html>
