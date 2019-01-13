@@ -1,7 +1,7 @@
 'use strict';
 $(document).ready(() => {
-    $(".unfold-nav").hide();
-    $(".categories-list").hide();
+  $('.unfold-nav').hide();
+  $('.categories-list').hide();
   // This file just does a GET request to figure out which user is logged in
   $.get('/api/user').then(data => {
     const $header = $('#btn-insert');
@@ -33,33 +33,130 @@ $(document).ready(() => {
       $header.append($signin);
     }
   });
-//   $.get('/api/newsapi').then(data => {
-//     console.log(data);
-//   });
+  //   $.get('/api/newsapi').then(data => {
+  //     console.log(data);
+  //   });
 });
+
+var frontPage;
+var articleHolder = [];
+var queryURL =
+  'https://newsapi.org/v2/top-headlines?' +
+  'country=us&' +
+  'apiKey=abf7b2766a1549eca7580d1b261d5838';
+
+$.ajax({
+  url: queryURL,
+  method: 'GET',
+  error: function() {
+    console.log('error');
+  },
+  success: function(data) {
+    console.log(data);
+    processData(data);
+  }
+});
+
+function processData(data) {
+  console.log(data);
+
+  for (var i = 0; i < data.articles.length; i++) {
+    var title = data.articles[i].title;
+    // console.log(title);
+
+    var subtitle = data.articles[i].description;
+    // console.log(subtitle);
+
+    var date = data.articles[i].publishedAt;
+    // console.log(date);
+
+    var blurb = data.articles[i].content;
+    // console.log(blurb);
+
+    var artUrl = data.articles[i].url;
+    console.log(artUrl);
+
+    // var fullArt = data.articles[i].content;
+    // console.log(fullArt)
+
+    var $title = $(
+      '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
+    );
+    var $date = $(
+      '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
+    );
+    var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
+    var $blurb = $('<div class="blurb">' + blurb + '</div >');
+    var $artUrl = $('<a href=' + artUrl + '>READ ARTICLE</a>');
+
+    articleHolder.push({
+      title: $title,
+      date: $date,
+      subtitle: $subtitle,
+      blurb: $blurb,
+      arturl: $artUrl,
+      id: i
+    });
+  }
+
+  for (var i = 0; i < data.articles.length; i++) {
+    var thumbnail = data.articles[i].urlToImage;
+    // console.log(thumbnail);
+
+    var $thumbnail = $(
+      `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+    );
+
+    $('.thumbnail-feed').append($thumbnail);
+  }
+
+  $('.thumbnail').mouseover(function() {
+    $('.front-page-feed').empty();
+    var id = $(this).attr('data-article');
+    console.log(id);
+
+    articleHolder.forEach(function(article) {
+      // console.log(article.id)
+
+      if (id == article.id) {
+        var editedBlurb = article.blurb[0].innerText.split('[')[0];
+
+        console.log(editedBlurb);
+        var $editedBlurb = $(
+          '<div class="edited-blurb">' + editedBlurb + '</div>'
+        );
+        $('.front-page-feed').append(
+          article.title,
+          article.date,
+          article.subtitle,
+          $editedBlurb,
+          article.arturl
+        );
+      }
+    });
+  });
+}
 
 
 ///                 NAV BAR                 ///
-$("#fold-nav-line").on("click", function() {
-    $("#fold-nav-line").hide();
-    $(".unfold-nav").show();
+$('#fold-nav-line').on('click', function() {
+  $('#fold-nav-line').hide();
+  $('.unfold-nav').show();
 
-        $("#unfold-nav-logo").mouseover(function() {
-            $(".categories-list").show();
+  $('#unfold-nav-logo').mouseover(function() {
+    $('.categories-list').show();
 
-                $(".nav-category").on("click", function() {
-                        // needs to refilter newsfeed by topic
-                })
-        })
+    $('.nav-category').on('click', function() {
+      // needs to refilter newsfeed by topic
+    });
+  });
 
-        $("#x").on("click", function() {
-            $("#fold-nav-line").show();
-            $(".unfold-nav").hide();
-            $(".categories-list").hide();
-        })
-
-
-})
+  $('#x').on('click', function() {
+    $('#fold-nav-line').show();
+    $('.unfold-nav').hide();
+    $('.categories-list').hide();
+  });
+});
 
 // $(".unfold-nav").mouseout(function() {
 //     $("#fold-nav-line").show();
@@ -68,27 +165,17 @@ $("#fold-nav-line").on("click", function() {
 
 // })
 
-
-
-
-
-
-
-
 ///                 TOP HEADLINES                    ///
-
-
-
 
 var frontPage;
 var articleHolder = [];
 
 // var headlines = [];
 
-var queryURL = 'https://newsapi.org/v2/top-headlines?' +
-    'country=us&' +
-    'apiKey=abf7b2766a1549eca7580d1b261d5838';
-
+var queryURL =
+  'https://newsapi.org/v2/top-headlines?' +
+  'country=us&' +
+  'apiKey=abf7b2766a1549eca7580d1b261d5838';
 
 function search() {
   ///                 SEARCH QUERY                   ///
@@ -107,163 +194,153 @@ function search() {
     }
   });
 
-
-
-function processData(data) {
+  function processData(data) {
     console.log(data);
 
     for (var i = 0; i < data.articles.length; i++) {
+      var title = data.articles[i].title;
+      // console.log(title);
 
-        var title = data.articles[i].title;
-        // console.log(title);
+      var subtitle = data.articles[i].description;
+      // console.log(subtitle);
 
-        var subtitle = data.articles[i].description;
-        // console.log(subtitle);
+      var date = data.articles[i].publishedAt;
+      // console.log(date);
 
-        var date = data.articles[i].publishedAt;
-        // console.log(date);
+      var blurb = data.articles[i].content;
+      // console.log(blurb);
 
-        var blurb = data.articles[i].content;
-        // console.log(blurb);
+      var artUrl = data.articles[i].url;
+      console.log(artUrl);
 
-        var artUrl = data.articles[i].url;
-        console.log(artUrl);
-        
+      // var fullArt = data.articles[i].content;
+      // console.log(fullArt)
 
-        // var fullArt = data.articles[i].content;
-        // console.log(fullArt)
+      var $title = $(
+        '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
+      );
+      var $date = $(
+        '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
+      );
+      var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
+      var $blurb = $('<div class="blurb">' + blurb + '</div >');
+      var $artUrl = $(
+        '<a  href=' +
+          artUrl +
+          "><img class='arrow' src='./assets/readartarrow.png'></a>"
+      );
 
-        
-        var $title = $("<a href=" + artUrl + '><div class="title">' + title + "</div ></a>");
-        var $date = $('<div class="date"><mark>PUBLISHED AT: ' + date + "<mark></div >");
-        var $subtitle = $('<div class="subtitle">' + subtitle + "</div >");
-        var $blurb = $('<div class="blurb">' + blurb + "</div >");
-        var $artUrl = $("<a  href=" + artUrl + "><img class='arrow' src='./assets/readartarrow.png'></a>")
-      
-        
-        // headlines.push(title);
-        // console.log(headlines[20]);
-        // module.exports = {headlines: headlines};
+      // headlines.push(title);
+      // console.log(headlines[20]);
+      // module.exports = {headlines: headlines};
 
-
-        articleHolder.push(
-            {
-                title: $title,
-                date: $date,
-                subtitle: $subtitle,
-                blurb: $blurb,
-                arturl: $artUrl,
-                id: i   
-            }
-        )
-       
+      articleHolder.push({
+        title: $title,
+        date: $date,
+        subtitle: $subtitle,
+        blurb: $blurb,
+        arturl: $artUrl,
+        id: i
+      });
     }
-
 
     for (var i = 0; i < data.articles.length; i++) {
       var thumbnail = data.articles[i].urlToImage;
       // console.log(thumbnail);
 
-        var $thumbnail = $(`<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`)
+      var $thumbnail = $(
+        `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+      );
 
       $('.thumbnail-feed').append($thumbnail);
     }
 
-
     // $('.thumbnail').each(function(){
-    //     $(this).parallax("50%", 0.6); 
+    //     $(this).parallax("50%", 0.6);
     //  });
-
 
     // $('.thumbnail').parallax({imageSrc: thumbnail});
 
-    $(".thumbnail").mouseover(function () {
-        $(".front-page-feed").empty();
-        var id = $(this).attr("data-article");
-        console.log(id)
-        
-        articleHolder.forEach(function(article){
-            // console.log(article.id)
+    $('.thumbnail').mouseover(function() {
+      $('.front-page-feed').empty();
+      var id = $(this).attr('data-article');
+      console.log(id);
 
+      articleHolder.forEach(function(article) {
+        // console.log(article.id)
 
-            
-            if(id == article.id){
+        if (id == article.id) {
+          var editedBlurb = article.blurb[0].innerText.split('[')[0];
 
-              
-                var editedBlurb = article.blurb[0].innerText.split('[')[0];
-
-                console.log(editedBlurb);
-                var $editedBlurb = $('<div class="edited-blurb">' + editedBlurb + "</div>")
-                $(".front-page-feed").append(article.title, article.date, article.subtitle, $editedBlurb, article.arturl);
-
-            }
-        })
-    })
-
-
-}
-
-// var x;
-// var index = 0;
-
-// function setup() {
-//     createCanvas(1000, 100);
-//     x = width;
-// }
-
-// function draw() {
-//     background(255);
-//     fill(0);
-  
-//     // Display headline at x  location
-//     // textFont(f,16);        
-//     textAlign(LEFT);
-//     text(headlines[index],x,180); 
-  
-//     // Decrement x
-//     x = x - 3;
-  
-//     // If x is less than the negative width, 
-//     // then it is off the screen
-//     var w = textWidth(headlines[index]);
-//     if (x < -w) {
-//       x = width; 
-//       index = (index + 1) % headlines.length;
-//     }
-//   }
-
-//   setup();
-//   draw();
-
-
-
-
-
-
-
-
-
-
-
-///                 SEARCH QUERY                   ///
-var search
-
-var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
-var countryRef = ""
-    $.ajax({
-        url: queryURL,
-        method: "GET",
-        error: function () {
-            console.log("error");
-        },
-        success: function (data) {
-            countryRef = data[0].alpha2Code;
+          console.log(editedBlurb);
+          var $editedBlurb = $(
+            '<div class="edited-blurb">' + editedBlurb + '</div>'
+          );
+          $('.front-page-feed').append(
+            article.title,
+            article.date,
+            article.subtitle,
+            $editedBlurb,
+            article.arturl
+          );
         }
+      });
     });
+  }
 
-var url = 'https://newsapi.org/v2/everything?' +
-    'q=' + search + '&' +
+  // var x;
+  // var index = 0;
 
+  // function setup() {
+  //     createCanvas(1000, 100);
+  //     x = width;
+  // }
+
+  // function draw() {
+  //     background(255);
+  //     fill(0);
+
+  //     // Display headline at x  location
+  //     // textFont(f,16);
+  //     textAlign(LEFT);
+  //     text(headlines[index],x,180);
+
+  //     // Decrement x
+  //     x = x - 3;
+
+  //     // If x is less than the negative width,
+  //     // then it is off the screen
+  //     var w = textWidth(headlines[index]);
+  //     if (x < -w) {
+  //       x = width;
+  //       index = (index + 1) % headlines.length;
+  //     }
+  //   }
+
+  //   setup();
+  //   draw();
+
+  ///                 SEARCH QUERY                   ///
+  var search;
+
+  var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
+  var countryRef = '';
+  $.ajax({
+    url: queryURL,
+    method: 'GET',
+    error: function() {
+      console.log('error');
+    },
+    success: function(data) {
+      countryRef = data[0].alpha2Code;
+    }
+  });
+
+  var url =
+    'https://newsapi.org/v2/everything?' +
+    'q=' +
+    search +
+    '&' +
     'from=2019-01-10&' +
     'sortBy=popularity&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
