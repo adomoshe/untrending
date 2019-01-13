@@ -2,8 +2,26 @@
 // Requiring our models and passport as we've configured it
 const db = require('../models');
 const passport = require('../config/passport.js');
+const newsapi = require('../app/newsAPI/news.js');
 
 module.exports = app => {
+  app.get('/api/newsapi/:section', (req, res) => {
+    if (req.params.section === 'trending') {
+      newsapi.v2
+        .topHeadlines({
+          q: '',
+          category: '',
+          language: 'en',
+          country: 'us'
+        })
+        .then(response => {
+          res.json({
+            response
+          });
+        });
+    }
+  });
+
   app.post('/api/categories', (req, res) => {
     if (req.session.passport) {
       db.Categories.findOrCreate({
