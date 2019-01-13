@@ -15,29 +15,15 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// Use the GoogleStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Google
-//   profile), and invoke a callback with a user object.
-
-let callbackURL = ''
-if (process.env.TERM_PROGRAM === 'vscode') {
-callbackURL = 'http://localhost:5000/auth/google/callback';
-} else {
-callbackURL = 'https://untrending.herokuapp.com/auth/google/callback'
-}
-
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: callbackURL,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
       passReqToCallback: true
     },
     (request, accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       db.User.findOrCreate({
         where: {
           googleId: profile.id,
@@ -53,7 +39,6 @@ passport.use(
         }
       })
         .then((user, err) => {
-          console.log('then user', user);
           return done(null, user);
         })
         .catch(err => {

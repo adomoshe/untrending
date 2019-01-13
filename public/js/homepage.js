@@ -6,11 +6,11 @@ $(document).ready(() => {
   $.get('/api/user').then(data => {
     const $header = $('#btn-insert');
     if (data) {
-        console.log(data)
-        // Below is our user object
-        console.log(data.user)
-        // Below is our categories object for the above user
-        console.log(data.categories)
+      console.log(data);
+      // Below is our user object
+      console.log(data.user);
+      // Below is our categories object for the above user
+      console.log(data.categories);
       const $logout = $('<a>');
       $logout.attr('class', 'navbar-brand');
       $logout.attr('id', 'logout-button');
@@ -33,7 +33,11 @@ $(document).ready(() => {
       $header.append($signin);
     }
   });
+//   $.get('/api/newsapi').then(data => {
+//     console.log(data);
+//   });
 });
+
 
 ///                 NAV BAR                 ///
 $("#fold-nav-line").on("click", function() {
@@ -70,6 +74,7 @@ $("#fold-nav-line").on("click", function() {
 
 
 
+
 ///                 TOP HEADLINES                    ///
 
 
@@ -77,12 +82,20 @@ $("#fold-nav-line").on("click", function() {
 
 var frontPage;
 var articleHolder = [];
+
 // var headlines = [];
 
 var queryURL = 'https://newsapi.org/v2/top-headlines?' +
     'country=us&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
 
+
+function search() {
+  ///                 SEARCH QUERY                   ///
+  var search;
+
+  var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
+  var countryRef = '';
   $.ajax({
     url: queryURL,
     method: 'GET',
@@ -90,9 +103,10 @@ var queryURL = 'https://newsapi.org/v2/top-headlines?' +
       console.log('error');
     },
     success: function(data) {
-      processData(data);
+      countryRef = data[0].alpha2Code;
     }
   });
+
 
 
 function processData(data) {
@@ -249,41 +263,25 @@ var countryRef = ""
 
 var url = 'https://newsapi.org/v2/everything?' +
     'q=' + search + '&' +
+
     'from=2019-01-10&' +
     'sortBy=popularity&' +
     'apiKey=abf7b2766a1549eca7580d1b261d5838';
+}
 
-//pseuocode: on click of submit button, user input = search, and call processData. 
+//pseuocode: on click of submit button, user input = search, and call processData.
 
 // search = $("#search-input").val();
 // console.log(search);
 
+// on click of submit button, user input = search, and call processData.
 
-
-
-
-
-
-
-  // on click of submit button, user input = search, and call processData.
-
-
-  ///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
-
-
-
-
-
-
-
-
-
+///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
 
 ///              FILTERING ALGORITHM                   ///
 
-function showAlternativeSideNews(manipulateData){
-
-    /*
+function showAlternativeSideNews(manipulateData) {
+  /*
     ** 
     input: data from current article being viewed
         OR
@@ -293,12 +291,12 @@ function showAlternativeSideNews(manipulateData){
         else 
             commonPoints = give article a certain point
     */
-    return manipulateData;
+  return manipulateData;
 }
 
 // pulls the average common point value of the different sources that come up as results in the search query
-function commonView(manipulateData){
-    /*
+function commonView(manipulateData) {
+  /*
         // put points in an array
         // check for outliers, 
             if there are outliers (checking for 1-3 vs 7-10 conservative level) 
@@ -311,37 +309,36 @@ function commonView(manipulateData){
     */
 }
 
-function mixSearchResults(manipulateData){
-//manipulate if there is time
+function mixSearchResults(manipulateData) {
+  //manipulate if there is time
 
-    return manipulateData;
+  return manipulateData;
 }
 
-function chooseAlternateCountryViews(manipulateData){ 
-    /*
+function chooseAlternateCountryViews(manipulateData) {
+  /*
         if (key words in headline, name of another country, middle east, central america, reference
             to foreign affairs. make a db table or an array of key words for reference)
                 find other data from foreign tagged news sources
         else    
     */
 
-    return manipulateData;
+  return manipulateData;
 }
 
-function keyWord(){
-    var querySites = [];
+function keyWord() {
+  var querySites = [];
 }
 
-function loosenCategoryParameters(data){
-
-    /*
+function loosenCategoryParameters(data) {
+  /*
         data--> whatever interests the user has. Takes it in and 
         manipulates (search, and top 20 methods so that you check
         key words in the title for sports terms as well as 
         choosing through category)
     */
 
-    return data;
+  return data;
 }
 
 ///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///

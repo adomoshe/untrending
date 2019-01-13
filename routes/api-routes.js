@@ -5,9 +5,7 @@ const passport = require('../config/passport.js');
 
 module.exports = app => {
   app.post('/api/categories', (req, res) => {
-    console.log(req.body);
     if (req.session.passport) {
-      console.log(req.user.dataValues);
       db.Categories.findOrCreate({
         where: {
           UserId: req.user.dataValues.id
@@ -22,7 +20,6 @@ module.exports = app => {
           UserId: req.user.dataValues.id
         }
       }).then(categories => {
-        console.log(categories);
         if (categories[1] === 'true') {
           console.log('Created');
           res.json('Created');
@@ -36,10 +33,7 @@ module.exports = app => {
   });
 
   app.put('/api/profile', (req, res) => {
-    console.log('in app.put api/profile');
     if (req.session.passport && req.user) {
-      console.log('req.session.passport ', req.session.passport);
-      console.log(req.body);
       db.Categories.update(
         {
           business: req.body.business,
@@ -55,7 +49,6 @@ module.exports = app => {
           }
         }
       ).then(categories => {
-        console.log(categories);
         res.json('Updated');
       });
     } else {
@@ -65,27 +58,26 @@ module.exports = app => {
   });
 
   app.delete('/api/delete-account', (req, res) => {
-    db.User.destroy({
+    db.Categories.destroy({
       where: {
-        id: req.user.dataValues.id
+        UserId: req.user.dataValues.id
       }
-    }).then(deletedUser => {
-      // db.Categories.destroy({
-      //   where: {
-      //     UserId: req.user.dataValues.id
-      //   }
-      // }).then(deletedCategories => {
-        console.log('Deleted: ', deletedUser, deletedCategories);
-        res.json(`Deleted ${deletedUser.username} and his/her categories`);
+    }).then(deletedCategories => {
+      db.User.destroy({
+        where: {
+          id: req.user.dataValues.id
+        }
+      }).then(deletedUser => {
+        if (deletedUser === 1 && deletedCategories === 1) {
+          res.json(`Deleted User`);
+        }
       });
     });
-  // });
+  });
 
   // Route for getting some data about our user to be used client side
   app.get('/api/user', (req, res) => {
-    console.log('in app.get api/user');
     if (req.session.passport && req.user) {
-      console.log('req.session.passport ', req.session.passport);
       db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
         categories => {
           res.json({
