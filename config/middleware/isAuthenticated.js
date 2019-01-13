@@ -3,10 +3,10 @@
 
 const isAuthenticated = (req, res, next) => {
   if (req.user) {
-    console.log('in isAuthenticated', req.session.passport.user);
+    console.log('Authenticated', req.session.passport.user);
     next();
   } else {
-    console.log('in isAuthenticated redirecting');
+    console.log('Not Authenticated... Redirecting');
     res.redirect('/');
   }
 };
