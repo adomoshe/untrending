@@ -1,7 +1,10 @@
-.jarallax {
-    z-index: -10;
+/* .jarallax {
     position: fixed;
 
+} */
+
+body {
+    background-color:black;
 }
 .text-slides {
     font-family: europa, sans-serif;
