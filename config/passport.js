@@ -1,26 +1,49 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 const passport = require('passport');
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
-const User = require('../models/user.js');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const db = require('../models');
 
-// Use the GoogleStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Google
-//   profile), and invoke a callback with a user object.
+passport.serializeUser((user, done) => {
+  done(null, user[0].dataValues.googleId);
+});
+
+passport.deserializeUser((id, done) => {
+  db.User.findOne({ where: { googleId: id } }).then(user => {
+    done(null, user);
+  });
+});
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:5000/auth/google/callback',
-      passReqToCallback   : true
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      passReqToCallback: true
     },
-    function(request, accessToken, refreshToken, profile, done) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return done(err, user);
-      });
+    (request, accessToken, refreshToken, profile, done) => {
+      db.User.findOrCreate({
+        where: {
+          googleId: profile.id,
+          username: profile.displayName,
+          firstname: profile.name.givenName,
+          lastname: profile.name.familyName
+        },
+        defaults: {
+          googleId: profile.id,
+          username: profile.displayName,
+          firstname: profile.name.givenName,
+          lastname: profile.name.familyName
+        }
+      })
+        .then((user, err) => {
+          return done(null, user);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   )
 );

@@ -1,41 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>untrending</title>
 
-<head>
-  <title>Home Page</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
-</head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://use.typekit.net/yda8anb.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/ctp4rbl.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/bth6xlg.css" />
 
-<body>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">
-        Logout
-      </a>
-    </div>
-  </div>
-</nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome to the Homepage <span class="username"></span></h2>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="btn-insert"></div>
+    <div class="front-page-feed"></div>
+    <div class="thumbnail-feed"></div>
+
+    <div class="fold-nav">
+      <div class="folded-nav">
+        <img id="fold-nav-line" src="assets/fold-final.png" />
+      </div>
+
+      <div class="unfold-nav">
+        <img id="x" src="assets/x_1-100.jpg" />
+        <img id="unfold-nav-logo" src="assets/whitelogo_1-100.jpg" />
+        <div class="categories-list">
+          <p class="nav-category">BUSINESS</p>
+          <p class="nav-category">ENTERTAINMENT</p>
+          <p class="nav-category">HEALTH</p>
+          <p class="nav-category">SCIENCE</p>
+          <p class="nav-category">SPORTS</p>
+          <p class="nav-category">TECHNOLOGY</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="front-page-feed"></div>
-  <div class="thumbnail-feed"></div>
-  
+    <form><input id="search-input" type="text">Search: </form>
 
-  <form><input id="search-input" type="text">Search: </form>
 
+ 
+  </body>
+
+  <!-- JAVASCRIPT -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/homepage.js"></script>
-
-</body>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/path/to/parallax.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/homepage.js"></script>
+  <script src="js/sketch.js"></script>
 </html>
