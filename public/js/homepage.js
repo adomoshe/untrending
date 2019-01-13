@@ -33,110 +33,65 @@ $(document).ready(() => {
       $header.append($signin);
     }
   });
-  //   $.get('/api/newsapi').then(data => {
-  //     console.log(data);
-  //   });
-});
-
-var frontPage;
-var articleHolder = [];
-var queryURL =
-  'https://newsapi.org/v2/top-headlines?' +
-  'country=us&' +
-  'apiKey=abf7b2766a1549eca7580d1b261d5838';
-
-$.ajax({
-  url: queryURL,
-  method: 'GET',
-  error: function() {
-    console.log('error');
-  },
-  success: function(data) {
-    console.log(data);
-    processData(data);
-  }
-});
-
-function processData(data) {
-  console.log(data);
-
-  for (var i = 0; i < data.articles.length; i++) {
-    var title = data.articles[i].title;
-    // console.log(title);
-
-    var subtitle = data.articles[i].description;
-    // console.log(subtitle);
-
-    var date = data.articles[i].publishedAt;
-    // console.log(date);
-
-    var blurb = data.articles[i].content;
-    // console.log(blurb);
-
-    var artUrl = data.articles[i].url;
-    console.log(artUrl);
-
-    // var fullArt = data.articles[i].content;
-    // console.log(fullArt)
-
-    var $title = $(
-      '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
-    );
-    var $date = $(
-      '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
-    );
-    var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
-    var $blurb = $('<div class="blurb">' + blurb + '</div >');
-    var $artUrl = $('<a href=' + artUrl + '>READ ARTICLE</a>');
-
-    articleHolder.push({
-      title: $title,
-      date: $date,
-      subtitle: $subtitle,
-      blurb: $blurb,
-      arturl: $artUrl,
-      id: i
-    });
-  }
-
-  for (var i = 0; i < data.articles.length; i++) {
-    var thumbnail = data.articles[i].urlToImage;
-    // console.log(thumbnail);
-
-    var $thumbnail = $(
-      `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
-    );
-
-    $('.thumbnail-feed').append($thumbnail);
-  }
-
-  $('.thumbnail').mouseover(function() {
-    $('.front-page-feed').empty();
-    var id = $(this).attr('data-article');
-    console.log(id);
-
-    articleHolder.forEach(function(article) {
-      // console.log(article.id)
-
-      if (id == article.id) {
-        var editedBlurb = article.blurb[0].innerText.split('[')[0];
-
-        console.log(editedBlurb);
-        var $editedBlurb = $(
-          '<div class="edited-blurb">' + editedBlurb + '</div>'
-        );
-        $('.front-page-feed').append(
-          article.title,
-          article.date,
-          article.subtitle,
-          $editedBlurb,
-          article.arturl
-        );
-      }
-    });
+  $.get('/api/newsapi/trending').then(data => {
+    displayArticles(data);
   });
-}
+});
 
+const displayArticles = articles => {
+  const article = articles.response.articles;
+  const articleHolder = [];
+  for (let i = 0; i < article.length; i++) {
+    if (article[i].title && article[i].description && article[i].content) {
+      let title = article[i].title;
+      let subtitle = article[i].description;
+      let date = article[i].publishedAt;
+      let blurb = article[i].content.split('[+')[0];
+      console.log(blurb);
+      let artUrl = article[i].url;
+      let thumbnail = article[i].urlToImage;
+
+      let $title = $(
+        `<a href=${artUrl}><div class='title'>${title}</div ></a>`
+      );
+      let $date = $(
+        `<div class='date'><mark>PUBLISHED AT: ${date}<mark></div >`
+      );
+      let $subtitle = $(`<div class='subtitle'>'${subtitle}'</div >`);
+      let $blurb = $(`<div class='blurb'>${blurb}</div >`);
+      let $artUrl = $(`<a href=${artUrl}>READ ARTICLE</a>`);
+
+      let $thumbnail = $(
+        `<img class='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+      );
+
+      articleHolder.push({
+        title: $title,
+        date: $date,
+        subtitle: $subtitle,
+        blurb: $blurb,
+        arturl: $artUrl
+      });
+      $('.thumbnail-feed').append($thumbnail);
+    } else {
+      articleHolder.push({article: null})
+      continue;
+    }
+  }
+
+  $('.thumbnail').mouseover(function(event) {
+    $('.front-page-feed').empty();
+    const id = $(this).data('article');
+    const article = articleHolder[id];
+    $('.front-page-feed').append(
+      article.title,
+      article.date,
+      article.subtitle,
+      article.blurb,
+      article.arturl
+    );
+  });
+};
 
 ///                 NAV BAR                 ///
 $('#fold-nav-line').on('click', function() {
