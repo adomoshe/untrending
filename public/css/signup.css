@@ -1,8 +1,18 @@
-.jarallax {
-    z-index: -10;
+/* .jarallax {
     position: fixed;
 
+} */
+
+body {
+    background-color:black;
 }
+
+#untrnd-gif {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 .text-slides {
     font-family: europa, sans-serif;
     font-size: 32px;
