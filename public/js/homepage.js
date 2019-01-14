@@ -344,7 +344,6 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
 
         }
       })
-
     }
   
 //calculate commonPoints average
@@ -371,12 +370,23 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
 }
 
 function mixSearchResults(manipulateData) {
-  //manipulate if there is time
+
+  //manipulate if there is time (this depends on result of key notes)
 
   return manipulateData;
 }
 
+function findAssociatedKeyWords(manipulatedData){
+  for(var i = 0; i < manipulateData.articles.length; i++){
+    var articleHeadline = manipulatedData.articles[i].title.split(' ');
+
+  }
+}
+
 function chooseAlternateCountryViews(manipulateData) {
+
+
+
   /*
         if (key words in headline, name of another country, middle east, central america, reference
             to foreign affairs. make a db table or an array of key words for reference)
