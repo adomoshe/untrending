@@ -13,7 +13,7 @@ $(document).ready(() => {
       // Below is our user object
       console.log(data.user);
       // Below is our categories object for the above user
-      console.log(data.categories);
+      console.log('categories object', data.categories);
       const $logout = $('<a>');
       $logout.attr('class', 'navbar-brand');
       $logout.attr('id', 'logout-button');
@@ -26,6 +26,7 @@ $(document).ready(() => {
       $userInfo.html(data.user.username);
       $userInfo.attr('href', '/profile');
       $header.append($userInfo);
+      categoriesCall(data.categories);
     } else {
       console.log('User not logged in');
       const $signin = $('<a>');
@@ -34,12 +35,27 @@ $(document).ready(() => {
       $signin.html('Sign In With Google');
       $signin.attr('href', '/auth/google');
       $header.append($signin);
+      trendingCall();
     }
   });
+});
+
+const trendingCall = () => {
   $.get('/newsapi/trending').then(data => {
     displayArticles(data);
   });
-});
+};
+
+const categoriesCall = cat => {
+  $.get(
+    `/newsapi/categories/${cat.business}/${cat.entertainment}/${cat.health}/${
+      cat.science
+    }/${cat.sports}/${cat.technology}`
+  ).then(data => {
+    console.log('resArr', data)
+    displayArticles(data);
+  });
+};
 
 $('#search-btn').on('click', event => {
   event.preventDefault();
@@ -88,7 +104,7 @@ const displayArticles = articles => {
         blurb: $blurb,
         arturl: $artUrl
       });
-      $('.thumbnail-feed').append($thumbnail);
+      $('.thumbnail-feed').prepend($thumbnail);
     } else {
       articleHolder.push({ article: null });
       continue;
