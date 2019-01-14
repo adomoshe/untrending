@@ -1,4 +1,3 @@
-
 'use strict';
 
 const db = require('../models');
@@ -10,15 +9,9 @@ var fromSearch = false;
 $(document).ready(() => {
   $('.unfold-nav').hide();
   $('.categories-list').hide();
-  // This file just does a GET request to figure out which user is logged in
   $.get('/api/user').then(data => {
     const $header = $('#btn-insert');
     if (data) {
-      console.log(data);
-      // Below is our user object
-      console.log(data.user);
-      // Below is our categories object for the above user
-      console.log('categories object', data.categories);
       const $logout = $('<a>');
       $logout.attr('class', 'navbar-brand');
       $logout.attr('id', 'logout-button');
@@ -31,9 +24,8 @@ $(document).ready(() => {
       $userInfo.html(data.user.username);
       $userInfo.attr('href', '/profile');
       $header.append($userInfo);
-      categoriesCall(data.categories);
+      trendingCall();
     } else {
-      console.log('User not logged in');
       const $signin = $('<a>');
       $signin.attr('class', 'navbar-brand');
       $signin.attr('id', 'signin-button');
@@ -57,7 +49,6 @@ const categoriesCall = cat => {
       cat.science
     }/${cat.sports}/${cat.technology}`
   ).then(data => {
-    console.log('resArr', data)
     displayArticles(data);
   });
 };
@@ -86,7 +77,6 @@ const displayArticles = articles => {
       let subtitle = article[i].description;
       let date = article[i].publishedAt;
       let blurb = article[i].content.split('[+')[0];
-      console.log(blurb);
       let artUrl = article[i].url;
       let thumbnail = article[i].urlToImage;
 
@@ -166,150 +156,149 @@ var articleHolder = [];
 
 // var headlines = [];
 
-  function processData(data) {
-    console.log(data);
+function processData(data) {
+  console.log(data);
 
-    for (var i = 0; i < data.articles.length; i++) {
-      var title = data.articles[i].title;
-      // console.log(title);
+  for (var i = 0; i < data.articles.length; i++) {
+    var title = data.articles[i].title;
+    // console.log(title);
 
-      var subtitle = data.articles[i].description;
-      // console.log(subtitle);
+    var subtitle = data.articles[i].description;
+    // console.log(subtitle);
 
-      var date = data.articles[i].publishedAt;
-      // console.log(date);
+    var date = data.articles[i].publishedAt;
+    // console.log(date);
 
-      var blurb = data.articles[i].content;
-      // console.log(blurb);
+    var blurb = data.articles[i].content;
+    // console.log(blurb);
 
-      var artUrl = data.articles[i].url;
-      console.log(artUrl);
+    var artUrl = data.articles[i].url;
+    console.log(artUrl);
 
-      // var fullArt = data.articles[i].content;
-      // console.log(fullArt)
+    // var fullArt = data.articles[i].content;
+    // console.log(fullArt)
 
-      var $title = $(
-        '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
-      );
-      var $date = $(
-        '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
-      );
-      var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
-      var $blurb = $('<div class="blurb">' + blurb + '</div >');
-      var $artUrl = $(
-        '<a  href=' +
-          artUrl +
-          "><img class='arrow' src='./assets/readartarrow.png'></a>"
-      );
+    var $title = $(
+      '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
+    );
+    var $date = $(
+      '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
+    );
+    var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
+    var $blurb = $('<div class="blurb">' + blurb + '</div >');
+    var $artUrl = $(
+      '<a  href=' +
+        artUrl +
+        "><img class='arrow' src='./assets/readartarrow.png'></a>"
+    );
 
-      // headlines.push(title);
-      // console.log(headlines[20]);
-      // module.exports = {headlines: headlines};
+    // headlines.push(title);
+    // console.log(headlines[20]);
+    // module.exports = {headlines: headlines};
 
-      articleHolder.push({
-        title: $title,
-        date: $date,
-        subtitle: $subtitle,
-        blurb: $blurb,
-        arturl: $artUrl,
-        id: i
-      });
-    }
-
-    for (var i = 0; i < data.articles.length; i++) {
-      var thumbnail = data.articles[i].urlToImage;
-      // console.log(thumbnail);
-
-      var $thumbnail = $(
-        `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
-      );
-
-      $('.thumbnail-feed').append($thumbnail);
-    }
-
-    // $('.thumbnail').each(function(){
-    //     $(this).parallax("50%", 0.6);
-    //  });
-
-    // $('.thumbnail').parallax({imageSrc: thumbnail});
-
-    $('.thumbnail').mouseover(function() {
-      $('.front-page-feed').empty();
-      var id = $(this).attr('data-article');
-      console.log(id);
-
-      articleHolder.forEach(function(article) {
-        // console.log(article.id)
-
-        if (id == article.id) {
-          var editedBlurb = article.blurb[0].innerText.split('[')[0];
-
-          console.log(editedBlurb);
-          var $editedBlurb = $(
-            '<div class="edited-blurb">' + editedBlurb + '</div>'
-          );
-          $('.front-page-feed').append(
-            article.title,
-            article.date,
-            article.subtitle,
-            $editedBlurb,
-            article.arturl
-          );
-        }
-      });
+    articleHolder.push({
+      title: $title,
+      date: $date,
+      subtitle: $subtitle,
+      blurb: $blurb,
+      arturl: $artUrl,
+      id: i
     });
   }
 
-  // var x;
-  // var index = 0;
+  for (var i = 0; i < data.articles.length; i++) {
+    var thumbnail = data.articles[i].urlToImage;
+    // console.log(thumbnail);
 
-  // function setup() {
-  //     createCanvas(1000, 100);
-  //     x = width;
-  // }
+    var $thumbnail = $(
+      `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+    );
 
-  // function draw() {
-  //     background(255);
-  //     fill(0);
+    $('.thumbnail-feed').append($thumbnail);
+  }
 
-  //     // Display headline at x  location
-  //     // textFont(f,16);
-  //     textAlign(LEFT);
-  //     text(headlines[index],x,180);
+  // $('.thumbnail').each(function(){
+  //     $(this).parallax("50%", 0.6);
+  //  });
 
-  //     // Decrement x
-  //     x = x - 3;
+  // $('.thumbnail').parallax({imageSrc: thumbnail});
 
-  //     // If x is less than the negative width,
-  //     // then it is off the screen
-  //     var w = textWidth(headlines[index]);
-  //     if (x < -w) {
-  //       x = width;
-  //       index = (index + 1) % headlines.length;
-  //     }
-  //   }
+  $('.thumbnail').mouseover(function() {
+    $('.front-page-feed').empty();
+    var id = $(this).attr('data-article');
+    console.log(id);
 
-  //   setup();
-  //   draw();
+    articleHolder.forEach(function(article) {
+      // console.log(article.id)
 
+      if (id == article.id) {
+        var editedBlurb = article.blurb[0].innerText.split('[')[0];
+
+        console.log(editedBlurb);
+        var $editedBlurb = $(
+          '<div class="edited-blurb">' + editedBlurb + '</div>'
+        );
+        $('.front-page-feed').append(
+          article.title,
+          article.date,
+          article.subtitle,
+          $editedBlurb,
+          article.arturl
+        );
+      }
+    });
+  });
+}
+
+// var x;
+// var index = 0;
+
+// function setup() {
+//     createCanvas(1000, 100);
+//     x = width;
+// }
+
+// function draw() {
+//     background(255);
+//     fill(0);
+
+//     // Display headline at x  location
+//     // textFont(f,16);
+//     textAlign(LEFT);
+//     text(headlines[index],x,180);
+
+//     // Decrement x
+//     x = x - 3;
+
+//     // If x is less than the negative width,
+//     // then it is off the screen
+//     var w = textWidth(headlines[index]);
+//     if (x < -w) {
+//       x = width;
+//       index = (index + 1) % headlines.length;
+//     }
+//   }
+
+//   setup();
+//   draw();
 
 ///              FILTERING ALGORITHM                   ///
 
 var search;
 
-function findCountry(name){
-var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + name + '}';
-var countryRef = '';
-$.ajax({
-  url: countryAcr,
-  method: 'GET',
-  error: function() {
-    console.log('error');
-  },
-  success: function(data) {
-    return data[0].alpha2Code;
-  }
-});
+function findCountry(name) {
+  var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + name + '}';
+  var countryRef = '';
+  $.ajax({
+    url: countryAcr,
+    method: 'GET',
+    error: function() {
+      console.log('error');
+    },
+    success: function(data) {
+      return data[0].alpha2Code;
+    }
+  });
 }
 
 function showAlternativeSideNews(manipulateData) {
@@ -326,7 +315,7 @@ function showAlternativeSideNews(manipulateData) {
     }
 
 
-function callAPI(parameter){
+function callAPI(parameter) {
   var search = parameter.description;
 
   $.get(`/newsapi/search/${search}`).then(data => {
@@ -359,21 +348,20 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
   }
 //calculate commonPoints average
   var average = commonPoints[0];
-    for (var i = 1; i < commonPoints.length; i++){
-      average += commonPoints[i];
-    }
-  average = commonPoints[0]/commonPoints.length-1;
+  for (var i = 1; i < commonPoints.length; i++) {
+    average += commonPoints[i];
+  }
+  average = commonPoints[0] / commonPoints.length - 1;
 
-
-  for (var i = 1; i < commonPoints.length; i++){
-    if(average > commonPoints[i]+3 || average < commonPoints[i]-3 ){
+  for (var i = 1; i < commonPoints.length; i++) {
+    if (average > commonPoints[i] + 3 || average < commonPoints[i] - 3) {
       chosenAltData.push(tempAltData[i]);
       tempAltData[i] = null;
     }
   }
 
-  for (var i = 1; i < tempAltData.length; i++){
-    if(tempAltData[i]!= null){
+  for (var i = 1; i < tempAltData.length; i++) {
+    if (tempAltData[i] != null) {
       chosenAltData.push(tempAltData[i]);
     }
   
@@ -387,7 +375,6 @@ function mixSearchResults(manipulateData) {
 }
 
 function chooseAlternateCountryViews(manipulateData) {
-
   /*
         if (key words in headline, name of another country, middle east, central america, reference
             to foreign affairs. make a db table or an array of key words for reference)
