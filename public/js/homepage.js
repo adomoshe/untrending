@@ -79,13 +79,17 @@ const displayArticles = articles => {
       let blurb = article[i].content.split('[+')[0];
       let artUrl = article[i].url;
       let thumbnail = article[i].urlToImage;
+      let formattedDate = new Date(date);
+      formattedDate.toString().split('GMT')[0];
 
       let $title = $(
         `<a href=${artUrl}><div class='title'>${title}</div ></a>`
       );
+
       let $date = $(
-        `<div class='date'><mark>PUBLISHED AT: ${date}<mark></div >`
+        `<div class='date'><mark>PUBLISHED ON: ${formattedDate}<mark></div >`
       );
+
       let $subtitle = $(`<div class='subtitle'>'${subtitle}'</div >`);
       let $blurb = $(`<div class='blurb'>${blurb}</div >`);
       let $artUrl = $(`<a href=${artUrl}>READ ARTICLE</a>`);

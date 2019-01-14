@@ -15,8 +15,13 @@ form.login {
     margin-left: 150px;
   }
   
+  #btn-insert {
+      z-index: 7;
+
+  }
   
 .front-page-feed {
+    margin-top: 0;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 2;
     position: fixed;
@@ -24,7 +29,8 @@ form.login {
     height: 100%;
     margin-left:50%;
     margin-top: 0;
-    overflow-y: scroll
+    overflow-y: scroll;
+    color: white;
 }
 
 .thumbnail {
@@ -157,13 +163,19 @@ mark {
     margin-left: 10px;
 }
 
-input {
-    margin-left: 30%;
 
+.lolsearch {
+    position: fixed;
+    z-index: 5;
+    margin-left: 30%;
+    margin-top: -15px;
 }
 
 
+
 #search-btn{
+
+
     font-family: europa, sans-serif;
 
     margin-top: 25px;
