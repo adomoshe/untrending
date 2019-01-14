@@ -49,7 +49,7 @@ Code reviews of code changes during pull requests were tracked in GitHub Code
 Peer reviews of user interface rendering and functionality completed by project team
 
 ## Deployment:
-     Deployed on ___
+     Deployed on January 11th, 2019 
 
 ### Creators:  
     Ado Moshe
