@@ -163,15 +163,19 @@ mark {
     margin-left: 10px;
 }
 
-input {
+
+.lolsearch {
+    position: fixed;
     z-index: 5;
     margin-left: 30%;
-    position: fixed;
-
+    margin-top: -15px;
 }
 
 
+
 #search-btn{
+
+
     font-family: europa, sans-serif;
 
     margin-top: 25px;
