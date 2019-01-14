@@ -27,95 +27,101 @@ module.exports = app => {
       console.log('Sending articles by category...');
       console.log('req.param', req.params);
       const resArr = [];
-      // var keys = [];
-      // for (var key in req.params) {
-      //     keys.push(key);
-      // }
-      // console.log(keys)
-      if (req.params.business === 'true') {
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'business',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-            console.log(resArr)
-            console.log(response)
-          });
+      if (req.params) {
+        if (req.params.business === 'true') {
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'business',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+              console.log(response.articles);
+              console.log('business resArr', resArr);
+            });
+        }
+        if (req.params.entertainment === 'true') {
+          console.log('in entertainment');
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'entertainment',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+              console.log('entertainment resarr', resArr);
+            });
+        }
+        if (req.params.health === 'true') {
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'health',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+            });
+        }
+        if (req.params.science === 'true') {
+          console.log('in science');
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'science',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+            });
+        }
+        if (req.params.sports === 'true') {
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'sports',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+            });
+        }
+        if (req.params.technology === 'true') {
+          newsapi.v2
+            .topHeadlines({
+              q: '',
+              category: 'technology',
+              language: 'en',
+              country: 'us',
+              pageSize: '4',
+              page: '1'
+            })
+            .then(response => {
+              resArr.push(response.articles);
+            });
+        }
+        console.log('final resArr', resArr);
+        res.json({ data: resArr });
+      } else {
+        res.json({ article: null });
       }
-      if (req.params.entertainment === 'true') {
-        console.log('in entertainment')
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'entertainment',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-          });
-      }
-      if (req.params.health === 'true') {
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'health',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-          });
-      }
-      if (req.params.science === 'true') {
-        console.log('in science')
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'science',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-          });
-      }
-      if (req.params.sports === 'true') {
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'sports',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-          });
-      }
-      if (req.params.technology === 'true') {
-        newsapi.v2
-          .topHeadlines({
-            q: '',
-            category: 'technology',
-            language: 'en',
-            country: 'us',
-            pageSize: '4'
-          })
-          .then(response => {
-            resArr.concat(response);
-          });
-      }
-      console.log(resArr)
-      res.json({resArr})
     }
   );
 
@@ -133,7 +139,6 @@ module.exports = app => {
         page: 1
       })
       .then(response => {
-        console.log(response);
         res.json({
           response
         });
