@@ -1,6 +1,8 @@
 
 'use strict';
 
+const db = require('../models');
+
 var fromSearch = false;
 
 
@@ -338,20 +340,23 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
    var chosenAltData = [];
    var tempAltData = [];
    for (var i; manipulateData.totalResults - 1; i++){
-    var query = "SELECT * FROM ratingSitesUS WHERE id IN (?)"
-    connection.query(query, manipulateData.articles[i].source.id,  function(err, res) {
-      if(err){
-        return manipulateData;
-      }else{
-        if(res.reliabilityRating > 3){ //making sure article is reliable
-          commonPoints.push(res.conservativeRating); //adding conservative rating for calculation
-          if (tempAltData.length < 20){
-            tempAltData.push(manipulateData.articles[i]);
+
+    db.Ratings.findOne({where: {siteId: manipulateData.articles[i].source.id}}).then(ratings =>
+      {
+        if(err){
+          return manipulateData;
+        }else{
+          if(res.reliabilityRating > 3){ //making sure article is reliable
+            commonPoints.push(res.conservativeRating); //adding conservative rating for calculation
+            if (tempAltData.length < 20){
+              tempAltData.push(manipulateData.articles[i]);
+            }
           }
         }
-      }
+      })
+
     }
-  );}
+  }
 //calculate commonPoints average
   var average = commonPoints[0];
     for (var i = 1; i < commonPoints.length; i++){
