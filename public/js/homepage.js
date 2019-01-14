@@ -34,7 +34,6 @@ $(document).ready(() => {
       $header.append($userInfo);
       trendingCall();
     } else {
-      console.log('User not logged in');
       const $signin = $('<a>');
       $signin.attr('class', 'navbar-brand');
       $signin.attr('id', 'signin-button');
@@ -58,7 +57,6 @@ const categoriesCall = cat => {
       cat.science
     }/${cat.sports}/${cat.technology}`
   ).then(data => {
-    console.log('resArr', data);
     displayArticles(data);
   });
 };

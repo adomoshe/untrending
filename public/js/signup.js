@@ -5,10 +5,8 @@ $(document).ready(() => {
       categories
     })
       .then(data => {
-        console.log('Registered user');
       })
       .catch(err => {
-        console.log(err);
       });
   };
   
