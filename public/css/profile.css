@@ -1,0 +1,59 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.your-categories {
+    font-family: europa, sans-serif;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    height: 100%;
+    margin-top: 10%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: underline;
+}
+
+form {
+    font-family: europa, sans-serif;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    height: 100%;
+    margin-top: 5%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#categories-submit {
+    margin-top: 25px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+#categories-submit:hover {
+    font-family: europa, sans-serif;
+    margin-top: 25px;
+    background-color: rgba(255, 255, 255, 0.509);
+    color: white;
+    border: 1px solid white;
+}
+
+#delete-account {
+    font-family: europa, sans-serif;
+    font-size: 14px;
+    color: white;
+    margin-left: 45%;
+    background-color:rgba(255, 0, 0, 0.879);
+
+}
+
+
+   
+
+ 
+
+
+
