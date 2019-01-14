@@ -7,11 +7,8 @@ $(document).ready(() => {
       data: categories
     })
       .then(data => {
-        console.log('Registered user');
-        console.log(data);
       })
       .catch(err => {
-        console.log(err);
       });
   };
 
@@ -22,14 +19,10 @@ $('#delete-account').on('click', event => {
       url: '/api/delete-account'
     })
       .then(data => {
-        console.log();
-        console.log(`Deleted user`);
-        console.log(data);
         const path = window.location.href.replace('/profile', '/');
         window.location.replace(path);
       })
       .catch(err => {
-        console.log(err);
       });
   });
 
