@@ -1,7 +1,7 @@
 'use strict';
 // var mysql = require("mysql2");
 
-var fromSearch = false;
+// var fromSearch = false;
 
 // var connection = mysql.createConnection({
 //   host: "localhost",
@@ -18,28 +18,28 @@ $(document).ready(() => {
   $('.unfold-nav').hide();
   $('.categories-list').hide();
   $.get('/api/user').then(data => {
-    const $header = $('#btn-insert');
+    const $nav = $('.unfold-nav');
     if (data) {
       const $logout = $('<a>');
-      $logout.attr('class', 'navbar-brand');
+      $logout.attr('class', 'nav-category');
       $logout.attr('id', 'logout-button');
       $logout.html('Logout');
       $logout.attr('href', '/logout');
-      $header.append($logout);
+      $nav.append($logout);
       const $userInfo = $('<a>');
-      $userInfo.attr('class', 'navbar-brand');
+      $userInfo.attr('class', 'nav-category');
       $userInfo.attr('id', 'user-info');
       $userInfo.html(data.user.username);
       $userInfo.attr('href', '/profile');
-      $header.append($userInfo);
+      $nav.append($userInfo);
       trendingCall();
     } else {
       const $signin = $('<a>');
-      $signin.attr('class', 'navbar-brand');
+      $signin.attr('class', 'nav-category');
       $signin.attr('id', 'signin-button');
       $signin.html('Sign In With Google');
       $signin.attr('href', '/auth/google');
-      $header.append($signin);
+      $nav.append($signin);
       trendingCall();
     }
   });
@@ -62,7 +62,6 @@ const categoriesCall = cat => {
 };
 
 $('#search-btn').on('click', event => {
-  fromSearch = true;
   event.preventDefault();
   const query = $('#search-input')
     .val()
@@ -70,10 +69,7 @@ $('#search-btn').on('click', event => {
     .toLowerCase();
   document.getElementById('search-form').reset();
   $.get(`/newsapi/search/${query}`).then(data => {
-    connection.connect(function(err) {
-      if (err) throw err;
       displayArticles(data);
-    });
   });
 });
 
@@ -139,10 +135,10 @@ const displayArticles = articles => {
 ///                 NAV BAR                 ///
 $('#fold-nav-line').on('click', function() {
   $('#fold-nav-line').hide();
-  // $('.unfold-nav').show();
+  $('.unfold-nav').show();
 
   $('#unfold-nav-logo').mouseover(function() {
-    // $('.categories-list').show();
+    $('.categories-list').show();
 
     $('.nav-category').on('click', function() {
       // needs to refilter newsfeed by topic
@@ -150,7 +146,7 @@ $('#fold-nav-line').on('click', function() {
   });
 
   $('#x').on('click', function() {
-    // $('#fold-nav-line').show();
+    $('#fold-nav-line').show();
     $('.unfold-nav').hide();
     $('.categories-list').hide();
   });

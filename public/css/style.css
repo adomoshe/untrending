@@ -150,8 +150,17 @@ mark {
     margin-left: 10px;
 }
 
+.nav-category {
+    color: black;
+    margin: 4%;
+    font-size: 30px;
+    float: left;
+
+}
+
 .nav-category:hover {
     transform: translateX(15px);
+    color: red
     
 }
 
@@ -165,10 +174,10 @@ mark {
 
 
 .lolsearch {
-    position: fixed;
+    /* position: fixed; */
     z-index: 5;
-    margin-left: 30%;
-    margin-top: -15px;
+    /* margin-left: 30%; */
+    /* margin-top: -15px; */
 }
 
 
