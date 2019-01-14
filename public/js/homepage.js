@@ -383,7 +383,12 @@ function mixSearchResults(manipulateData) {
 function findAssociatedKeyWords(manipulatedData){
   for(var i = 0; i < manipulateData.articles.length; i++){
     var articleHeadline = manipulatedData.articles[i].title.split(' ');
-
+    for (var j = 0; j < articleHeadline.length; j++){
+      //go through the key database to find sites associated with that
+      //search the key word in those site
+      //if its not a .com or a normal us site find out what it is
+      // chooseAlternateCountryViews
+    }
   }
 }
 
