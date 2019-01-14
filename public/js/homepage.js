@@ -341,11 +341,12 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
               tempAltData.push(manipulateData.articles[i]);
             }
           }
+
         }
       })
 
     }
-  }
+  
 //calculate commonPoints average
   var average = commonPoints[0];
   for (var i = 1; i < commonPoints.length; i++) {
@@ -367,6 +368,7 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
   
     return chosenAltData;
   }
+}
 
 function mixSearchResults(manipulateData) {
   //manipulate if there is time
