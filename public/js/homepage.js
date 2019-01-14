@@ -376,7 +376,7 @@ function commonView(manipulateData) { // chooses the reliable sites and the poin
     if(tempAltData[i]!= null){
       chosenAltData.push(tempAltData[i]);
     }
-  }
+  
     return chosenAltData;
   }
 
