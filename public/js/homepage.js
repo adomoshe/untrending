@@ -1,19 +1,9 @@
 
 'use strict';
-var mysql = require("mysql2");
 
 var fromSearch = false;
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  // Your port; if not 3306
-  port: 3306,
-  // Your username
-  user: "root",
-  // Your password
-  password: "",
-  database: "untrending_db"
-});
+
 
 $(document).ready(() => {
   $('.unfold-nav').hide();
@@ -79,10 +69,7 @@ $('#search-btn').on('click', event => {
     .toLowerCase();
   document.getElementById('search-form').reset();
   $.get(`/newsapi/search/${query}`).then(data => {
-    connection.connect(function(err) {
-      if (err) throw err;
       showAlternativeSideNews(data);
-    });
     //displayArticles(data);
   });
 });
@@ -328,17 +315,14 @@ function showAlternativeSideNews(manipulateData) {
     if (fromSearch){
       return commonView(manipulateData); //immediately picks out the more suitable Data Points
     }else{
-        var query = "SELECT * FROM ratingSitesUS WHERE id IN (?)"
-        connection.query(query, manipulateData.articles[0].source.id,  function(err, res) {
           if(err){
             callAPI(manipulateData.articles[0]);
           }else{
             callAPI(manipulateData.articles[0]);
           }
         }
-        );
     }
-}
+
 
 function callAPI(parameter){
   var search = parameter.description;
