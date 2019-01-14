@@ -18,7 +18,7 @@ Deployed app: https://untrending.herokuapp.com
 ## Functionality
 
 ### APIs Used:
-    - Apple News API 
+    -  News API 
      - REST countries API
           for translating countries to 2-string codes
 
