@@ -1,4 +1,7 @@
+
 'use strict';
+
+
 $(document).ready(() => {
   $('.unfold-nav').hide();
   $('.categories-list').hide();
@@ -281,7 +284,7 @@ function search() {
   var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + 'UK' + '}';
   var countryRef = '';
   $.ajax({
-    url: queryURL,
+    url: countryAcr,
     method: 'GET',
     error: function() {
       console.log('error');
@@ -308,11 +311,27 @@ function search() {
 
 // on click of submit button, user input = search, and call processData.
 
-///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///
 
 ///              FILTERING ALGORITHM                   ///
+fromSearch = false;
 
 function showAlternativeSideNews(manipulateData) {
+  var commonPoints = [];
+  var chosenAltData = [];
+
+    if (fromSearch){
+      return commonView(manipulateData);
+    }else{
+        var query = "SELECT 1 FROM ratingSitesUS WHERE id IN (?)"
+        connection.query(query, manipulateData.articles[0].source.id,  function(err, res) {
+          if(err){
+            return manipulateData;
+          }else{
+            callAPI(manipulateData.articles[0]);
+          }
+        }
+        );
+    }
   /*
     ** 
     input: data from current article being viewed
@@ -326,8 +345,31 @@ function showAlternativeSideNews(manipulateData) {
   return manipulateData;
 }
 
+function callAPI(parameter){
+  
+ var search = parameter.description;
+  var queryURL =
+      'https://newsapi.org/v2/everything?' +
+    'q=' +
+    search +
+    '&' +
+    'from=2019-01-10&' +
+    'sortBy=popularity&' +
+    'apiKey=abf7b2766a1549eca7580d1b261d5838';
+  $.ajax({
+    url: queryURL,
+    method: 'GET',
+    error: function() {
+      console.log('error');
+    },
+    success: function(data) {
+      commonView(manipulateData);
+    }
+  });
+}
+
 // pulls the average common point value of the different sources that come up as results in the search query
-function commonView(manipulateData) {
+function commonView(manipulateData) { //search results
   /*
         // put points in an array
         // check for outliers, 
@@ -339,7 +381,39 @@ function commonView(manipulateData) {
                 return (average);
                 
     */
-}
+   var commonPoints = [];
+   var chosenAltData = [];
+   var tempAltData = [];
+   for (var i; manipulateData.totalResults - 1; i++){
+    var query = "SELECT 1 FROM ratingSitesUS WHERE id IN (?)"
+    connection.query(query, manipulateData.articles[i].source.id,  function(err, res) {
+      if(err){
+        return manipulateData;
+      }else{
+        if(res.reliabilityRating > 3){ //making sure article is reliable
+          commonPoints.push(res.conservativeRating); //adding conservative rating for calculation
+          if (tempAltData.length < 20){
+            tempAltData.push(manipulateData.articles[i]);
+          }
+        }
+      }
+    }
+  );}
+//calculate commonPoints average
+  var average = commonPoints[0];
+    for (var i = 1; i < commonPoints.length; i++){
+      average += commonPoints[i];
+    }
+  average = commonPoints[0]/commonPoints.length-1;
+
+
+  for (var i = 1; i < commonPoints.length; i++){
+    if(average < commonPoints[i]+3 || average < commonPoints[i]-3 ){
+      chosenAltData.push(tempAltData[i]);
+    }
+  }
+    return chosenAltData;
+  }
 
 function mixSearchResults(manipulateData) {
   //manipulate if there is time
@@ -372,5 +446,3 @@ function loosenCategoryParameters(data) {
 
   return data;
 }
-
-///                 RIP OUT SOURCES FOR FILTERING ALGORITHM                   ///

@@ -56,11 +56,10 @@ INSERT INTO ratingSites VALUES ("national-review", 7, 7);
 INSERT INTO ratingSites VALUES ("usa-today", 5, 8);
 INSERT INTO ratingSites VALUES ("daily-mail", 7, 2);
 INSERT INTO ratingSites VALUES ("the-hill", 7, 8);
-INSERT INTO ratingSites VALUES ("cbc", 0, 0);
 
 /* adds key words and association to sites with each key word*/
 
-INSERT INTO keyWord VALUES ("islam", "");
+INSERT INTO keyWord VALUES ("islam", 1);
 INSERT INTO keyWord VALUES ("middle east", 2);
 INSERT INTO keyWord VALUES ("palestine", 2);
 INSERT INTO keyWord VALUES ("syria", 2);
