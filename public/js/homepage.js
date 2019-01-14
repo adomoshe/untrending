@@ -33,12 +33,25 @@ $(document).ready(() => {
       $header.append($signin);
     }
   });
-  $.get('/api/newsapi/trending').then(data => {
+  $.get('/newsapi/trending').then(data => {
+    displayArticles(data);
+  });
+});
+
+$('#search-btn').on('click', event => {
+  event.preventDefault();
+  const query = $('#search-input')
+    .val()
+    .trim()
+    .toLowerCase();
+  document.getElementById('search-form').reset();
+  $.get(`/newsapi/search/${query}`).then(data => {
     displayArticles(data);
   });
 });
 
 const displayArticles = articles => {
+  $('.thumbnail-feed').empty();
   const article = articles.response.articles;
   const articleHolder = [];
   for (let i = 0; i < article.length; i++) {
@@ -74,7 +87,7 @@ const displayArticles = articles => {
       });
       $('.thumbnail-feed').append($thumbnail);
     } else {
-      articleHolder.push({article: null})
+      articleHolder.push({ article: null });
       continue;
     }
   }
@@ -96,10 +109,10 @@ const displayArticles = articles => {
 ///                 NAV BAR                 ///
 $('#fold-nav-line').on('click', function() {
   $('#fold-nav-line').hide();
-  $('.unfold-nav').show();
+  // $('.unfold-nav').show();
 
   $('#unfold-nav-logo').mouseover(function() {
-    $('.categories-list').show();
+    // $('.categories-list').show();
 
     $('.nav-category').on('click', function() {
       // needs to refilter newsfeed by topic
@@ -107,7 +120,7 @@ $('#fold-nav-line').on('click', function() {
   });
 
   $('#x').on('click', function() {
-    $('#fold-nav-line').show();
+    // $('#fold-nav-line').show();
     $('.unfold-nav').hide();
     $('.categories-list').hide();
   });

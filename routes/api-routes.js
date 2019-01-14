@@ -5,21 +5,41 @@ const passport = require('../config/passport.js');
 const newsapi = require('../app/newsAPI/news.js');
 
 module.exports = app => {
-  app.get('/api/newsapi/:section', (req, res) => {
-    if (req.params.section === 'trending') {
-      newsapi.v2
-        .topHeadlines({
-          q: '',
-          category: '',
-          language: 'en',
-          country: 'us'
-        })
-        .then(response => {
-          res.json({
-            response
-          });
+  app.get('/newsapi/trending', (req, res) => {
+    console.log('Sending trending articles...');
+    newsapi.v2
+      .topHeadlines({
+        q: '',
+        category: '',
+        language: 'en',
+        country: 'us'
+      })
+      .then(response => {
+        res.json({
+          response
         });
-    }
+      });
+  });
+
+  app.get('/newsapi/search/:query', (req, res) => {
+    console.log(`Searching articles about ${req.params.query}`);
+    newsapi.v2
+      .everything({
+        q: req.params.query,
+        sources: '',
+        domains: '',
+        from: '',
+        to: '',
+        language: 'en',
+        sortBy: 'relevancy',
+        page: 1
+      })
+      .then(response => {
+        console.log(response);
+        res.json({
+          response
+        });
+      });
   });
 
   app.post('/api/categories', (req, res) => {
