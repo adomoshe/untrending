@@ -1,22 +1,7 @@
 'use strict';
-// var mysql = require("mysql2");
-
-// var fromSearch = false;
-
-// var connection = mysql.createConnection({
-//   host: "localhost",
-//   // Your port; if not 3306
-//   port: 3306,
-//   // Your username
-//   user: "root",
-//   // Your password
-//   password: "",
-//   database: "untrending_db"
-// });
-
+$('.unfold-nav').hide();
+$('.categories-list').hide();
 $(document).ready(() => {
-  $('.unfold-nav').hide();
-  $('.categories-list').hide();
   $.get('/api/user').then(data => {
     const $nav = $('.unfold-nav');
     if (data) {
@@ -32,7 +17,8 @@ $(document).ready(() => {
       $userInfo.html(data.user.username);
       $userInfo.attr('href', '/profile');
       $nav.append($userInfo);
-      trendingCall();
+      console.log(data);
+      categoriesCall();
     } else {
       const $signin = $('<a>');
       $signin.attr('class', 'nav-category');
@@ -47,17 +33,19 @@ $(document).ready(() => {
 
 const trendingCall = () => {
   $.get('/newsapi/trending').then(data => {
-    displayArticles(data);
+    console.log(data)
+    displayArticles(data.response.articles);
   });
 };
 
-const categoriesCall = cat => {
-  $.get(
-    `/newsapi/categories/${cat.business}/${cat.entertainment}/${cat.health}/${
-      cat.science
-    }/${cat.sports}/${cat.technology}`
-  ).then(data => {
-    displayArticles(data);
+const categoriesCall = () => {
+  $.get(`/newsapi/categories`).then(data => {
+    console.log('Categories data response', data.articleArr[0]);
+    console.log(data)
+    data.articleArr.forEach(choice => {
+      console.log(choice)
+      displayArticles(choice)
+    })
   });
 };
 
@@ -69,14 +57,13 @@ $('#search-btn').on('click', event => {
     .toLowerCase();
   document.getElementById('search-form').reset();
   $.get(`/newsapi/search/${query}`).then(data => {
-      displayArticles(data);
+    displayArticles(data.response.articles);
   });
 });
 
-const displayArticles = articles => {
-  $('.thumbnail-feed').empty();
-  const article = articles.response.articles;
-  const articleHolder = [];
+const articleHolder = [];
+const displayArticles = article => {
+  console.log(article)
   for (let i = 0; i < article.length; i++) {
     if (article[i].title && article[i].description && article[i].content) {
       let title = article[i].title;
@@ -101,7 +88,7 @@ const displayArticles = articles => {
       let $artUrl = $(`<a href=${artUrl}>READ ARTICLE</a>`);
 
       let $thumbnail = $(
-        `<img class='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+        `<img class='thumbnail' src=${thumbnail} data-article=${articleHolder.length}> <br>`
       );
 
       articleHolder.push({
@@ -161,8 +148,6 @@ $('#fold-nav-line').on('click', function() {
 
 ///                 TOP HEADLINES                    ///
 
-var frontPage;
-var articleHolder = [];
 
 // var headlines = [];
 
