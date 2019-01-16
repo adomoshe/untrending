@@ -21,109 +21,73 @@ module.exports = app => {
       });
   });
 
-  app.get(
-    '/newsapi/categories/:business/:entertainment/:health/:science/:sports/:technology',
-    (req, res) => {
-      console.log('Sending articles by category...');
-      console.log('req.param', req.params);
-      const resArr = [];
-      if (req.params) {
-        if (req.params.business === 'true') {
+  app.get('/newsapi/categories', (req, res) => {
+    console.log('Sending articles by category...');
+    const articleArr = [];
+    const apiCall = choicesArr => {
+      let apiPromise = new Promise((resolve, reject) => {
+        console.log('In apiCall function');
+        choicesArr.forEach(choice => {
           newsapi.v2
             .topHeadlines({
               q: '',
-              category: 'business',
+              category: `${choice}`,
               language: 'en',
               country: 'us',
               pageSize: '4',
               page: '1'
             })
             .then(response => {
-              resArr.push(response.articles);
-              console.log(response.articles);
-              console.log('business resArr', resArr);
+              console.log(choice, response.articles);
+              articleArr.push(response.articles);
+              if (choicesArr.length === articleArr.length) {
+                console.log('Resolving apiPromise');
+                resolve('Success');
+              }
             });
-        }
-        if (req.params.entertainment === 'true') {
-          console.log('in entertainment');
-          newsapi.v2
-            .topHeadlines({
-              q: '',
-              category: 'entertainment',
-              language: 'en',
-              country: 'us',
-              pageSize: '4',
-              page: '1'
-            })
-            .then(response => {
-              resArr.push(response.articles);
-              console.log('entertainment resarr', resArr);
-            });
-        }
-        if (req.params.health === 'true') {
-          newsapi.v2
-            .topHeadlines({
-              q: '',
-              category: 'health',
-              language: 'en',
-              country: 'us',
-              pageSize: '4',
-              page: '1'
-            })
-            .then(response => {
-              resArr.push(response.articles);
-            });
-        }
-        if (req.params.science === 'true') {
-          console.log('in science');
-          newsapi.v2
-            .topHeadlines({
-              q: '',
-              category: 'science',
-              language: 'en',
-              country: 'us',
-              pageSize: '4',
-              page: '1'
-            })
-            .then(response => {
-              resArr.push(response.articles);
-            });
-        }
-        if (req.params.sports === 'true') {
-          newsapi.v2
-            .topHeadlines({
-              q: '',
-              category: 'sports',
-              language: 'en',
-              country: 'us',
-              pageSize: '4',
-              page: '1'
-            })
-            .then(response => {
-              resArr.push(response.articles);
-            });
-        }
-        if (req.params.technology === 'true') {
-          newsapi.v2
-            .topHeadlines({
-              q: '',
-              category: 'technology',
-              language: 'en',
-              country: 'us',
-              pageSize: '4',
-              page: '1'
-            })
-            .then(response => {
-              resArr.push(response.articles);
-            });
-        }
-        console.log('final resArr', resArr);
-        res.json({ data: resArr });
-      } else {
-        res.json({ article: null });
+        });
+      });
+      apiPromise
+        .then(val => {
+          console.log(val, articleArr);
+          res.json({ articleArr });
+          console.log('Done');
+        })
+        .catch(reason => {
+          console.log(reason);
+        });
+    };
+
+    db.Categories.find({
+      where: {
+        UserId: req.user.id
       }
-    }
-  );
+    }).then(data => {
+      const cat = data.dataValues;
+      const choices = [];
+
+      if (cat.business) {
+        choices.push('business');
+      }
+      if (cat.entertainment) {
+        choices.push('entertainment');
+      }
+      if (cat.health) {
+        choices.push('health');
+      }
+      if (cat.science) {
+        choices.push('science');
+      }
+      if (cat.sports) {
+        choices.push('sports');
+      }
+      if (cat.technology) {
+        choices.push('technology');
+      }
+      console.log(choices);
+      apiCall(choices);
+    });
+  });
 
   app.get('/newsapi/search/:query', (req, res) => {
     console.log(`Searching articles about ${req.params.query}`);
