@@ -1,7 +1,26 @@
 'use strict';
-$('.unfold-nav').hide();
-$('.categories-list').hide();
 $(document).ready(() => {
+  ///                 NAV BAR                 ///
+  $('.unfold-nav').hide();
+  $('.categories-list').hide();
+  $('#fold-nav-line').on('click', () => {
+    $('#fold-nav-line').hide();
+    $('.unfold-nav').show();
+
+    $('#unfold-nav-logo').mouseover(() => {
+      $('.categories-list').show();
+      $('.nav-category').on('click', () => {
+        // needs to refilter newsfeed by topic
+      });
+    });
+
+    $('#x').on('click', () => {
+      $('#fold-nav-line').show();
+      $('.unfold-nav').hide();
+      $('.categories-list').hide();
+    });
+  });
+
   $.get('/api/user').then(data => {
     const $nav = $('.unfold-nav');
     if (data) {
@@ -33,7 +52,7 @@ $(document).ready(() => {
 
 const trendingCall = () => {
   $.get('/newsapi/trending').then(data => {
-    console.log(data)
+    console.log(data);
     displayArticles(data.response.articles);
   });
 };
@@ -41,11 +60,11 @@ const trendingCall = () => {
 const categoriesCall = () => {
   $.get(`/newsapi/categories`).then(data => {
     console.log('Categories data response', data.articleArr[0]);
-    console.log(data)
+    console.log(data);
     data.articleArr.forEach(choice => {
-      console.log(choice)
-      displayArticles(choice)
-    })
+      console.log(choice);
+      displayArticles(choice);
+    });
   });
 };
 
@@ -63,7 +82,7 @@ $('#search-btn').on('click', event => {
 
 const articleHolder = [];
 const displayArticles = article => {
-  console.log(article)
+  console.log(article);
   for (let i = 0; i < article.length; i++) {
     if (article[i].title && article[i].description && article[i].content) {
       let title = article[i].title;
@@ -88,7 +107,9 @@ const displayArticles = article => {
       let $artUrl = $(`<a href=${artUrl}>READ ARTICLE</a>`);
 
       let $thumbnail = $(
-        `<img class='thumbnail' src=${thumbnail} data-article=${articleHolder.length}> <br>`
+        `<img class='thumbnail' src=${thumbnail} data-article=${
+          articleHolder.length
+        }> <br>`
       );
 
       articleHolder.push({
@@ -118,132 +139,6 @@ const displayArticles = article => {
     );
   });
 };
-
-///                 NAV BAR                 ///
-$('#fold-nav-line').on('click', function() {
-  $('#fold-nav-line').hide();
-  $('.unfold-nav').show();
-
-  $('#unfold-nav-logo').mouseover(function() {
-    $('.categories-list').show();
-
-    $('.nav-category').on('click', function() {
-      // needs to refilter newsfeed by topic
-    });
-  });
-
-  $('#x').on('click', function() {
-    $('#fold-nav-line').show();
-    $('.unfold-nav').hide();
-    $('.categories-list').hide();
-  });
-});
-
-// $(".unfold-nav").mouseout(function() {
-//     $("#fold-nav-line").show();
-//     $(".unfold-nav").hide();
-//     $(".categories-list").hide();
-
-// })
-
-///                 TOP HEADLINES                    ///
-
-
-// var headlines = [];
-
-function processData(data) {
-  console.log(data);
-
-  for (var i = 0; i < data.articles.length; i++) {
-    var title = data.articles[i].title;
-    // console.log(title);
-
-    var subtitle = data.articles[i].description;
-    // console.log(subtitle);
-
-    var date = data.articles[i].publishedAt;
-    // console.log(date);
-
-    var blurb = data.articles[i].content;
-    // console.log(blurb);
-
-    var artUrl = data.articles[i].url;
-    console.log(artUrl);
-
-    // var fullArt = data.articles[i].content;
-    // console.log(fullArt)
-
-    var $title = $(
-      '<a href=' + artUrl + '><div class="title">' + title + '</div ></a>'
-    );
-    var $date = $(
-      '<div class="date"><mark>PUBLISHED AT: ' + date + '<mark></div >'
-    );
-    var $subtitle = $('<div class="subtitle">' + subtitle + '</div >');
-    var $blurb = $('<div class="blurb">' + blurb + '</div >');
-    var $artUrl = $(
-      '<a  href=' +
-        artUrl +
-        "><img class='arrow' src='./assets/readartarrow.png'></a>"
-    );
-
-    // headlines.push(title);
-    // console.log(headlines[20]);
-    // module.exports = {headlines: headlines};
-
-    articleHolder.push({
-      title: $title,
-      date: $date,
-      subtitle: $subtitle,
-      blurb: $blurb,
-      arturl: $artUrl,
-      id: i
-    });
-  }
-
-  for (var i = 0; i < data.articles.length; i++) {
-    var thumbnail = data.articles[i].urlToImage;
-    // console.log(thumbnail);
-
-    var $thumbnail = $(
-      `<img class ='thumbnail' src=${thumbnail} data-article=${i}> <br>`
-    );
-
-    $('.thumbnail-feed').append($thumbnail);
-  }
-
-  // $('.thumbnail').each(function(){
-  //     $(this).parallax("50%", 0.6);
-  //  });
-
-  // $('.thumbnail').parallax({imageSrc: thumbnail});
-
-  $('.thumbnail').mouseover(function() {
-    $('.front-page-feed').empty();
-    var id = $(this).attr('data-article');
-    console.log(id);
-
-    articleHolder.forEach(function(article) {
-      // console.log(article.id)
-
-      if (id == article.id) {
-        var editedBlurb = article.blurb[0].innerText.split('[')[0];
-
-        console.log(editedBlurb);
-        var $editedBlurb = $(
-          '<div class="edited-blurb">' + editedBlurb + '</div>'
-        );
-        $('.front-page-feed').append(
-          article.title,
-          article.date,
-          article.subtitle,
-          $editedBlurb,
-          article.arturl
-        );
-      }
-    });
-  });
-}
 
 // var x;
 // var index = 0;
@@ -276,127 +171,3 @@ function processData(data) {
 
 //   setup();
 //   draw();
-
-///              FILTERING ALGORITHM                   ///
-
-var search;
-
-function findCountry(name) {
-  var countryAcr = 'https://restcountries.eu/rest/v2/name/{' + name + '}';
-  var countryRef = '';
-  $.ajax({
-    url: countryAcr,
-    method: 'GET',
-    error: function() {
-      console.log('error');
-    },
-    success: function(data) {
-      return data[0].alpha2Code;
-    }
-  });
-}
-
-function showAlternativeSideNews(manipulateData) {
-  if (fromSearch) {
-    return commonView(manipulateData); //immediately picks out the more suitable Data Points
-  } else {
-    var query = 'SELECT * FROM ratingSitesUS WHERE id IN (?)';
-    connection.query(query, manipulateData.articles[0].source.id, function(
-      err,
-      res
-    ) {
-      if (err) {
-        callAPI(manipulateData.articles[0]);
-      } else {
-        callAPI(manipulateData.articles[0]);
-      }
-    });
-  }
-}
-
-function callAPI(parameter) {
-  var search = parameter.description;
-
-  $.get(`/newsapi/search/${search}`).then(data => {
-    displayArticles(commonView(data));
-  });
-}
-
-function commonView(manipulateData) {
-  // chooses the reliable sites and the points that are different from the common results and displays them
-
-  var commonPoints = [];
-  var chosenAltData = [];
-  var tempAltData = [];
-  for (var i; manipulateData.totalResults - 1; i++) {
-    var query = 'SELECT * FROM ratingSitesUS WHERE id IN (?)';
-    connection.query(query, manipulateData.articles[i].source.id, function(
-      err,
-      res
-    ) {
-      if (err) {
-        return manipulateData;
-      } else {
-        if (res.reliabilityRating > 3) {
-          //making sure article is reliable
-          commonPoints.push(res.conservativeRating); //adding conservative rating for calculation
-          if (tempAltData.length < 20) {
-            tempAltData.push(manipulateData.articles[i]);
-          }
-        }
-      }
-    });
-  }
-  //calculate commonPoints average
-  var average = commonPoints[0];
-  for (var i = 1; i < commonPoints.length; i++) {
-    average += commonPoints[i];
-  }
-  average = commonPoints[0] / commonPoints.length - 1;
-
-  for (var i = 1; i < commonPoints.length; i++) {
-    if (average > commonPoints[i] + 3 || average < commonPoints[i] - 3) {
-      chosenAltData.push(tempAltData[i]);
-      tempAltData[i] = null;
-    }
-  }
-
-  for (var i = 1; i < tempAltData.length; i++) {
-    if (tempAltData[i] != null) {
-      chosenAltData.push(tempAltData[i]);
-    }
-  }
-  return chosenAltData;
-}
-
-function mixSearchResults(manipulateData) {
-  //manipulate if there is time
-
-  return manipulateData;
-}
-
-function chooseAlternateCountryViews(manipulateData) {
-  /*
-        if (key words in headline, name of another country, middle east, central america, reference
-            to foreign affairs. make a db table or an array of key words for reference)
-                find other data from foreign tagged news sources
-        else    
-    */
-
-  return manipulateData;
-}
-
-function keyWord() {
-  var querySites = [];
-}
-
-function loosenCategoryParameters(data) {
-  /*
-        data--> whatever interests the user has. Takes it in and 
-        manipulates (search, and top 20 methods so that you check
-        key words in the title for sports terms as well as 
-        choosing through category)
-    */
-
-  return data;
-}
