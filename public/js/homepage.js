@@ -34,7 +34,7 @@ $(document).ready(() => {
 const trendingCall = () => {
   $.get('/newsapi/trending').then(data => {
     console.log(data)
-    displayArticles(data);
+    displayArticles(data.response.articles);
   });
 };
 
@@ -57,14 +57,13 @@ $('#search-btn').on('click', event => {
     .toLowerCase();
   document.getElementById('search-form').reset();
   $.get(`/newsapi/search/${query}`).then(data => {
-    displayArticles(data);
+    displayArticles(data.response.articles);
   });
 });
 
-const displayArticles = (articles, categories) => {
-  $('.thumbnail-feed').empty();
-  const article = articles.response.articles;
-  const articleHolder = [];
+const articleHolder = [];
+const displayArticles = article => {
+  console.log(article)
   for (let i = 0; i < article.length; i++) {
     if (article[i].title && article[i].description && article[i].content) {
       let title = article[i].title;
@@ -89,7 +88,7 @@ const displayArticles = (articles, categories) => {
       let $artUrl = $(`<a href=${artUrl}>READ ARTICLE</a>`);
 
       let $thumbnail = $(
-        `<img class='thumbnail' src=${thumbnail} data-article=${i}> <br>`
+        `<img class='thumbnail' src=${thumbnail} data-article=${articleHolder.length}> <br>`
       );
 
       articleHolder.push({
@@ -149,8 +148,6 @@ $('#fold-nav-line').on('click', function() {
 
 ///                 TOP HEADLINES                    ///
 
-var frontPage;
-var articleHolder = [];
 
 // var headlines = [];
 
