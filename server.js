@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const exphbs = require('express-handlebars');
 const session = require('express-session');
 const passport = require('./config/passport');
 
@@ -18,9 +17,6 @@ app.use(passport.session());
 
 require('./routes/html-routes.js')(app);
 require('./routes/api-routes.js')(app);
-
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
