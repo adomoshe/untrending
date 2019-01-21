@@ -1,58 +1,47 @@
 
-# Getting Started - unTrending
+# untrending
 
-Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.
+### MISSION STATEMENT:
 
-Deployed app: https://untrending.herokuapp.com
+#### To re-filter the news in order to encourage users to consume stories from multiple perspectives.
 
-### Purpose:
+### MOTIVATION: 
 
-	 unTrending is an application that gives its user access to news 
-     from a variety of outlets. 
-     The media often presents biased information as fact, something that 
-     people are becoming more aware of nowadays than they had been 
-     before. unTrending aims to show a multitude of perspectives of the 
-     same news event so that the user can have an informed view of the 
-     world. 
+Considering the ever-growing quantity of media outlets in addition to our undeniable addiction to the internet, it's no longer an option to ignore the news. Based on our environment and community, it is easy to get saturated by news from a single perspective. Thus, unless with an active intention to consume otherwise, our personal views on the world inevitably narrow and mold according to what we are fed. *Untrending* is built to reverse this common algorithm and reopen users' world views.
 
-## Functionality
+### TEAM:
 
-### APIs Used:
-    - Apple News API 
-     - REST countries API
-          for translating countries to 2-string codes
+**Sherrie Lin** Front-end development, UIUX design<br/>
+**Ado Moshe** Back-end development<br/>
+**Swechchha Parajuli** Algorithmic concept<br/>
 
-### Built With:
+### HOW *untrending* WORKS:
 
- - Custom HTML / CSS / JavaScript.
- - 
+User enters by logging in via Google Authorization. 
+If first-time user, user will be prompted with list of categories to select to curate personal homepage newsfeed. 
+Once logged in, by default user will see top trending news at the time in which they enter. User can use search query and categories navigation bar to self-filter news articles.
+Once user selects a news article, *untrending* suggests a list of articles of the same topic from different news outlets. News outlets are ranked on a political spectrum and marked according to how similar or different the perspective is to the selected article.
+To read full article, *untrending* redirects user to original source in new tab.
 
-## Additional Outside Sources Implemented:
+### HOW *untrending* IS BUILT: 
 
-    - express
-    - handlebars
-    - sequelize
-    - mySQL2
-    - passport-google-oauth2
+#### `FLOW`
+
+![Flow 1](public/assets/rmflow1.png)
+![Flow 2](public/assets/rmflow2.png)
+![Flow 3](public/assets/rmflow3.png)
+![Flow 4](public/assets/rmflow4.png)
+
+#### `TECHNOLOGY`
+
+-Written in HTML, CSS, & Javascript<br/>
+-Utilizes News API & REST Countries API<br/>
+-Uses Express, mySQL2, Sequelize, & Passport Google Authorization
+
+###### DEPLOYED VIA HEROKU ON JANUARY 11, 2019. Link: https://untrending.herokuapp.com
 
 
 
-### Outline of Data-Sorting Algorithm for Categorization:
-  
- - site search results bring up top results, but also the top results from certain sites depending on whether a key term is hit
- - 
 
-### Running the tests:
 
-Unit testing & integration testing was informally executed
-Code reviews of code changes during pull requests were tracked in GitHub Code
-Peer reviews of user interface rendering and functionality completed by project team
 
-## Deployment:
-     Deployed on January 11th, 2019 
-
-### Creators:  
-    Ado Moshe
-    Sherrie Lin
-    Albert Shay
-    Swechchha Parajuli
