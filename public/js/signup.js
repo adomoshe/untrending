@@ -1,4 +1,5 @@
 'use strict';
+
 $(document).ready(() => {
   const registerUser = categories => {
     $.post('/api/categories', {

@@ -51,14 +51,14 @@ $(document).ready(() => {
 });
 
 const trendingCall = () => {
-  $.get('/newsapi/trending').then(data => {
+  $.get('api/news/trending').then(data => {
     console.log(data);
     displayArticles(data.response.articles);
   });
 };
 
 const categoriesCall = () => {
-  $.get(`/newsapi/categories`).then(data => {
+  $.get(`api/news/categories`).then(data => {
     console.log('Categories data response', data.articleArr[0]);
     console.log(data);
     data.articleArr.forEach(choice => {
@@ -75,7 +75,7 @@ $('#search-btn').on('click', event => {
     .trim()
     .toLowerCase();
   document.getElementById('search-form').reset();
-  $.get(`/newsapi/search/${query}`).then(data => {
+  $.get(`api/news/search/${query}`).then(data => {
     displayArticles(data.response.articles);
   });
 });
@@ -122,7 +122,6 @@ const displayArticles = article => {
       $('.thumbnail-feed').prepend($thumbnail);
     } else {
       articleHolder.push({ article: null });
-      continue;
     }
   }
 
@@ -139,35 +138,3 @@ const displayArticles = article => {
     );
   });
 };
-
-// var x;
-// var index = 0;
-
-// function setup() {
-//     createCanvas(1000, 100);
-//     x = width;
-// }
-
-// function draw() {
-//     background(255);
-//     fill(0);
-
-//     // Display headline at x  location
-//     // textFont(f,16);
-//     textAlign(LEFT);
-//     text(headlines[index],x,180);
-
-//     // Decrement x
-//     x = x - 3;
-
-//     // If x is less than the negative width,
-//     // then it is off the screen
-//     var w = textWidth(headlines[index]);
-//     if (x < -w) {
-//       x = width;
-//       index = (index + 1) % headlines.length;
-//     }
-//   }
-
-//   setup();
-//   draw();
