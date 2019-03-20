@@ -1,4 +1,5 @@
 'use strict';
+
 $(document).ready(() => {
   const updateCategories = categories => {
     $.ajax({
@@ -6,13 +7,11 @@ $(document).ready(() => {
       url: '/api/profile',
       data: categories
     })
-      .then(data => {
-      })
-      .catch(err => {
-      });
+      .then(data => {})
+      .catch(err => {});
   };
 
-$('#delete-account').on('click', event => {
+  $('#delete-account').on('click', event => {
     alert('You are about to delete your UnTrending account!');
     $.ajax({
       method: 'DELETE',
@@ -22,8 +21,7 @@ $('#delete-account').on('click', event => {
         const path = window.location.href.replace('/profile', '/');
         window.location.replace(path);
       })
-      .catch(err => {
-      });
+      .catch(err => {});
   });
 
   $('#categories-submit').on('click', event => {
