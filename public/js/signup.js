@@ -25,7 +25,7 @@ $(document).ready(() => {
   });
 });
 
-$(document).ready(function() {
+$(document).ready(() => {
   // $(".full-form").hide();
   $('.welcome').hide();
   $('.whats-your-name').hide();
@@ -33,33 +33,21 @@ $(document).ready(function() {
   showHello = setTimeout(nextLine, 1500);
 });
 
-var showHello;
-var showWelcome;
+let showHello;
+let showWelcome;
 
-// $(".hello").on("scroll", function() {
-//   console.log("scrolling");
-//   $(".hello").fadeOut();
-//       $(".welcome").show();
-//       $(".welcome").fadeIn();
-// })
-
-// $(window).scroll(function(){
-//   $(".hello").hide();
-//     $(".welcome").show();
-// });
-
-function nextLine() {
+const nextLine = () => {
   $('.hello').hide();
   $('.welcome').fadeIn();
   showWelcome = setTimeout(nextLineTwo, 1500);
-}
+};
 
-function nextLineTwo() {
+const nextLineTwo = () => {
   $('.welcome').hide();
   $('.categories').fadeIn();
 
-  $('#categories-submit').on('click', event => {
-    event.preventDefault();
+  $('#categories-submit').on('click', e => {
+    e.preventDefault();
     const categories = {
       business: $('#business').prop('checked'),
       entertainment: $('#entertainment').prop('checked'),
@@ -72,4 +60,4 @@ function nextLineTwo() {
     const path = window.location.href.replace('/signup', '/');
     window.location.replace(path);
   });
-}
+};
