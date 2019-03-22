@@ -1,7 +1,8 @@
+/* eslint-disable comma-dangle */
 const router = require('express').Router();
 const db = require('../models');
 const passport = require('../config/passport.js');
-const newsapi = require('../app/newsAPI/news.js');
+const newsapi = require('../app/news-api/news.js');
 
 router.get('/news/trending', (req, res) => {
   console.log('Sending trending articles...');
@@ -23,7 +24,7 @@ router.get('/news/categories', (req, res) => {
   console.log('Sending articles by category...');
   const articleArr = [];
   const apiCall = choicesArr => {
-    let apiPromise = new Promise((resolve, reject) => {
+    const apiPromise = new Promise((resolve, reject) => {
       console.log('In apiCall function');
       choicesArr.forEach(choice => {
         newsapi.v2
@@ -151,7 +152,7 @@ router.put('/profile', (req, res) => {
           UserId: req.user.dataValues.id
         }
       }
-    ).then(categories => {
+    ).then(() => {
       res.json('Updated');
     });
   } else {
@@ -172,7 +173,7 @@ router.delete('/delete-account', (req, res) => {
       }
     }).then(deletedUser => {
       if (deletedUser === 1 && deletedCategories === 1) {
-        res.json(`Deleted User`);
+        res.json('Deleted User');
       }
     });
   });
