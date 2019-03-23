@@ -5,7 +5,7 @@ const passport = require('../config/passport.js');
 const newsapi = require('../app/news-api/news.js');
 
 router.get('/news/trending', (req, res) => {
-  console.log('Sending trending articles...');
+  console.log('Sending the trending articles...');
   newsapi.v2
     .topHeadlines({
       q: '',
