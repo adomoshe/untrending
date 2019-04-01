@@ -1,7 +1,9 @@
 const router = require('express').Router();
+const googleAuth = require('./google_auth');
 const apiRoutes = require('./api');
 const htmlRoutes = require('./html');
 
+router.use('/auth', googleAuth);
 router.use('/api', apiRoutes);
 router.use('/', htmlRoutes);
 

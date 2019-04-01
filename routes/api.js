@@ -1,11 +1,11 @@
 /* eslint-disable comma-dangle */
+/* eslint-disable arrow-parens */
 const router = require('express').Router();
 const db = require('../models');
-const passport = require('../config/passport.js');
 const newsapi = require('../app/news-api/news.js');
 
 router.get('/news/trending', (req, res) => {
-  console.log('Sending the trending articles...');
+  console.log('Sending trending articles...');
   newsapi.v2
     .topHeadlines({
       q: '',
@@ -195,30 +195,5 @@ router.get('/user', (req, res) => {
     res.json(null);
   }
 });
-
-router.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['profile'] })
-);
-
-router.get(
-  '/auth/google/callback',
-  passport.authenticate('google'),
-  (req, res) => {
-    db.User.findOne({ where: { googleId: req.session.passport.user } }).then(
-      user => {
-        db.Categories.findOne({ where: { UserId: user.dataValues.id } }).then(
-          categories => {
-            if (categories) {
-              res.redirect('/');
-            } else {
-              res.redirect('/signup');
-            }
-          }
-        );
-      }
-    );
-  }
-);
 
 module.exports = router;
