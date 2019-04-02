@@ -2,11 +2,11 @@
 /* eslint-disable arrow-parens */
 const router = require('express').Router();
 const db = require('../models');
-const newsapi = require('../app/news-api/news.js');
+const newsAPI = require('../app/news-api/news.js');
 
 router.get('/news/trending', (req, res) => {
   console.log('Sending trending articles...');
-  newsapi.v2
+  newsAPI.v2
     .topHeadlines({
       q: '',
       category: '',
@@ -27,7 +27,7 @@ router.get('/news/categories', (req, res) => {
     const apiPromise = new Promise((resolve, reject) => {
       console.log('In apiCall function');
       choicesArr.forEach(choice => {
-        newsapi.v2
+        newsAPI.v2
           .topHeadlines({
             q: '',
             category: `${choice}`,
@@ -37,7 +37,6 @@ router.get('/news/categories', (req, res) => {
             page: '1'
           })
           .then(response => {
-            console.log(choice, response.articles);
             articleArr.push(response.articles);
             if (choicesArr.length === articleArr.length) {
               console.log('Resolving apiPromise');
@@ -47,8 +46,7 @@ router.get('/news/categories', (req, res) => {
       });
     });
     apiPromise
-      .then(val => {
-        console.log(val, articleArr);
+      .then(() => {
         res.json({ articleArr });
         console.log('Done');
       })
@@ -56,41 +54,24 @@ router.get('/news/categories', (req, res) => {
         console.log(reason);
       });
   };
-
   db.Categories.find({
-    where: {
-      UserId: req.user.id
-    }
+    where: { UserId: req.user.id }
   }).then(data => {
-    const cat = data.dataValues;
+    const cats = Object.entries(data.dataValues);
     const choices = [];
-
-    if (cat.business) {
-      choices.push('business');
-    }
-    if (cat.entertainment) {
-      choices.push('entertainment');
-    }
-    if (cat.health) {
-      choices.push('health');
-    }
-    if (cat.science) {
-      choices.push('science');
-    }
-    if (cat.sports) {
-      choices.push('sports');
-    }
-    if (cat.technology) {
-      choices.push('technology');
-    }
-    console.log(choices);
+    cats.forEach(([key, cat]) => {
+      if (cat) {
+        console.log(`${key}: ${cat}`);
+        choices.push(cat);
+      }
+    });
     apiCall(choices);
   });
 });
 
 router.get('/news/search/:query', (req, res) => {
   console.log(`Searching articles about ${req.params.query}`);
-  newsapi.v2
+  newsAPI.v2
     .everything({
       q: req.params.query,
       sources: '',
@@ -110,17 +91,18 @@ router.get('/news/search/:query', (req, res) => {
 
 router.post('/categories', (req, res) => {
   if (req.session.passport) {
+    const cat = req.body.categories;
     db.Categories.findOrCreate({
       where: {
         UserId: req.user.dataValues.id
       },
       defaults: {
-        business: req.body.categories.business,
-        entertainment: req.body.categories.business,
-        health: req.body.categories.health,
-        science: req.body.categories.science,
-        sports: req.body.categories.sports,
-        technology: req.body.categories.technology,
+        business: cat.business,
+        entertainment: cat.business,
+        health: cat.health,
+        science: cat.science,
+        sports: cat.sports,
+        technology: cat.technology,
         UserId: req.user.dataValues.id
       }
     }).then(categories => {
@@ -179,14 +161,13 @@ router.delete('/delete-account', (req, res) => {
   });
 });
 
-// Route for getting some data about our user to be used client side
 router.get('/user', (req, res) => {
   if (req.session.passport && req.user) {
     db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
       categories => {
         res.json({
           user: req.user.dataValues,
-          categories: categories
+          categories
         });
       }
     );

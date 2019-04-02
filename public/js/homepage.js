@@ -36,7 +36,6 @@ $(document).ready(() => {
       $userInfo.html(data.user.username);
       $userInfo.attr('href', '/profile');
       $nav.append($userInfo);
-      console.log(data);
       categoriesCall();
     } else {
       const $signin = $('<a>');
@@ -52,17 +51,13 @@ $(document).ready(() => {
 
 const trendingCall = () => {
   $.get('api/news/trending').then(data => {
-    console.log(data);
     displayArticles(data.response.articles);
   });
 };
 
 const categoriesCall = () => {
   $.get(`api/news/categories`).then(data => {
-    console.log('Categories data response', data.articleArr[0]);
-    console.log(data);
     data.articleArr.forEach(choice => {
-      console.log(choice);
       displayArticles(choice);
     });
   });
@@ -82,7 +77,6 @@ $('#search-btn').on('click', event => {
 
 const articleHolder = [];
 const displayArticles = article => {
-  console.log(article);
   for (let i = 0; i < article.length; i++) {
     if (article[i].title && article[i].description && article[i].content) {
       let title = article[i].title;
