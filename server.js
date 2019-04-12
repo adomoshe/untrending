@@ -11,7 +11,7 @@ const routes = require('./routes');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(session({ secret: 'chicken', secure: 'auto' }));
+// app.use(session({ secret: 'chicken', secure: 'auto' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
