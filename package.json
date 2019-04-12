@@ -4,7 +4,6 @@
   "description": "Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
   "repository": {
