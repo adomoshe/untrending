@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 module.exports = (sequelize, DataTypes) => {
     const Categories = sequelize.define('Categories', {
       business: DataTypes.BOOLEAN,
@@ -9,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       sports: DataTypes.BOOLEAN,
       technology: DataTypes.BOOLEAN,
     });
-  
+
       Categories.associate = models => {
         Categories.belongsTo(models.User, {
           foreignKey: {
@@ -17,6 +19,6 @@ module.exports = (sequelize, DataTypes) => {
           }
         })
       }
-  
+
     return Categories;
   };
