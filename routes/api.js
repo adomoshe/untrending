@@ -25,7 +25,6 @@ router.get('/news/categories', (req, res) => {
   const articleArr = [];
   const apiCall = choicesArr => {
     const apiPromise = new Promise((resolve, reject) => {
-      console.log('In apiCall function');
       choicesArr.forEach(choice => {
         newsAPI.v2
           .topHeadlines({
@@ -39,7 +38,6 @@ router.get('/news/categories', (req, res) => {
           .then(response => {
             articleArr.push(response.articles);
             if (choicesArr.length === articleArr.length) {
-              console.log('Resolving apiPromise');
               resolve('Success');
             }
           });

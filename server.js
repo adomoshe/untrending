@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-
+const sequelize = require('./models/index');
 
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -12,7 +12,14 @@ const routes = require('./routes');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-// app.use(session({ secret: 'chicken', secure: 'auto' }));
+app.use(
+  session({
+    secret: 'chicken',
+    secure: 'auto',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
