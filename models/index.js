@@ -1,5 +1,3 @@
-'use strict';
-
 const Sequelize = require('sequelize');
 const sequelize = process.env.JAWSDB_URL
   ? new Sequelize(process.env.JAWSDB_URL)

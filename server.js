@@ -1,11 +1,8 @@
 const express = require('express');
 const app = express();
-
-const sequelize = require('./models/index');
-
 const session = require('express-session');
 const passport = require('./config/passport');
-
+const sequelize = require('./models/index');
 const PORT = process.env.PORT || 5000;
 const routes = require('./routes');
 
