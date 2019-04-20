@@ -52,7 +52,7 @@ router.get('/news/categories', (req, res) => {
         console.log(reason);
       });
   };
-  db.Categories.find({
+  db.Categories.findOne({
     where: { UserId: req.user.id }
   }).then(data => {
     const cats = Object.entries(data.dataValues);
