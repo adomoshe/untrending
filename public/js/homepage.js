@@ -57,7 +57,6 @@ const trendingCall = () => {
 
 const categoriesCall = () => {
   $.get(`api/news/categories`).then(data => {
-    console.log(data)
     data.articleArr.forEach(choice => {
       displayArticles(choice);
     });
