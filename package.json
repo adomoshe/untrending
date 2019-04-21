@@ -4,7 +4,9 @@
   "description": "Full-stack news app that displays news opposite to what the user would typically browse, broadening people's perspectives.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "newsapi": "^2.4.0",
     "passport": "^0.4.0",
     "passport-google-oauth2": "^0.1.6",
-    "sequelize": "^5.3.3"
+    "sequelize": "^5.3.3",
+    "if-env": "^1.0.4"
   }
 }
