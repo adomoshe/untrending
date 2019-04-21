@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable arrow-parens */
 const router = require('express').Router();
-const db = require('../models');
+const db = require('../models/index');
 const newsAPI = require('../app/news-api/news.js');
 
 router.get('/news/trending', (req, res) => {
@@ -24,7 +24,7 @@ router.get('/news/categories', (req, res) => {
   console.log('Sending articles by category...');
   const articleArr = [];
   const apiCall = choicesArr => {
-    const apiPromise = new Promise((resolve, reject) => {
+    const apiPromise = new Promise(resolve => {
       choicesArr.forEach(choice => {
         newsAPI.v2
           .topHeadlines({
@@ -58,9 +58,8 @@ router.get('/news/categories', (req, res) => {
     const cats = Object.entries(data.dataValues);
     const choices = [];
     cats.forEach(([key, cat]) => {
-      if (cat) {
-        console.log(`${key}: ${cat}`);
-        choices.push(cat);
+      if (cat.toString() === 'true') {
+        choices.push(key);
       }
     });
     apiCall(choices);

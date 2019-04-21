@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const db = require('../models');
+const db = require('../models/index');
 const passport = require('../config/passport.js');
 
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
