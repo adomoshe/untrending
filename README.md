@@ -1,19 +1,20 @@
 
 # untrending
 
-### MISSION STATEMENT:
+### Purpose:
 
-#### To re-filter the news in order to encourage users to consume stories from multiple perspectives.
+#### Untrending aims to expand readers' perspectives when consuming the news by offering related articles across the bias spectrum.
 
 ### MOTIVATION: 
 
-Considering the ever-growing quantity of media outlets in addition to our undeniable addiction to the internet, it's no longer an option to ignore the news. Based on our environment and community, it is easy to get saturated by news from a single perspective. Thus, unless with an active intention to consume otherwise, our personal views on the world inevitably narrow and mold according to what we are fed. *Untrending* is built to reverse this common algorithm and reopen users' world views.
+Intentionally or not, we often get pulled into a media bias when reading the news. Wether it's because we are actively seeking reinforcing and therefore comforting perspectives or we are simply the victims of algorithms running news aggregators. These algorithms are designed, as they are in many tech platforms, to maximize our attention for ad revenue generation. Keeping these users is typically done by appealing to their interests, which when applied to news means suggesting articles that reinforce a user's point of view. 
+
+Untrending is built to reverse exactly that effect. Here, users will be offered differing views on the same topic. This is in an effort to expand the user's perspective and gently nudge them out of their bias or in the very least not strengthen it. Productive conersations and public discourse is diffucult to conduct without each side at least being informed of the other.
 
 ### TEAM:
 
 **Sherrie Lin** Front-end development, UIUX design<br/>
 **Ado Moshe** Back-end development<br/>
-**Swechchha Parajuli** Algorithmic concept<br/>
 
 ### HOW *untrending* WORKS:
 
