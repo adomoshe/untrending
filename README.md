@@ -1,5 +1,5 @@
 
-# untrending
+# Untrending
 
 ### Purpose:
 
@@ -14,6 +14,7 @@ Untrending is built to reverse exactly that effect. Here, users will be offered 
 ### Team:
 
 **Sherrie Lin** Front-end development, UIUX design
+<br>
 **Ado Moshe** Back-end development
 
 ### HOW Untrending WORKS:
