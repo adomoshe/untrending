@@ -46,9 +46,9 @@ Untrending is built to reverse exactly that effect. Here, users will be offered 
 
 #### `TECHNOLOGY`
 
--Written in HTML, CSS, & Javascript<br/>
--Utilizes News API & REST Countries API<br/>
--Uses Express, mySQL2, Sequelize, & Passport Google Authorization
+-HTML, CSS, & Javascript<br/>
+-News API<br/>
+-Express, mySQL, Sequelize, & Passport Google Authorization
 
 ###### DEPLOYED VIA HEROKU ON JANUARY 11, 2019. Link: https://untrending.herokuapp.com
 
