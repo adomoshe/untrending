@@ -17,8 +17,19 @@ Untrending is built to reverse exactly that effect. Here, users will be offered 
 <br>
 **Ado Moshe** Back-end development
 
-### HOW Untrending WORKS:
+### News Ranking:
 
+We decided to use Ad Fontes media bias chart for our news source bias ranking as it seems to be the most prominent and trusted. Ad Fontes ranks news sources on their bias and quality, this is all of course subjective but through a large data set should yield the mutual feeling of most. Ad Fontes attempts to overcome these barriers as much as possible by ranking media outlets during the same news cycle, using large datasets, diversity of analysts, as well as refined methods and rubrics.
+
+Quality rankings are assesed by picking apart each sentence and rating it on a 1-5 scale based on how true it is factually and if it is more opinion or fact. Fairness of the sentence is also a factor, even if a sentence is absolutely true it may be used in order to blatantly persuade readers of some agenda, and is taken into account.
+
+Bias is also approached carefully. Topic presentation is evaluated starting in the headline, it is see through "political position, characterization, and terminology". Bias is mostly evaluated through omissions, comparing the target article to others about the same topic to see what other facts were omitted.
+
+Media source quality is ranked vertically from "Original fact reporting" to "Contains inaccurate/fabricated information" with 6 steps in between. Bias is ranked horizontally from "Most extreme left" to "Most extreme right" with 5 steps in between.
+
+More info: https://www.adfontesmedia.com/how-ad-fontes-ranks-news-sources/
+
+Untrending only displays articles from sources that fall under the "Original fact reporting" to "Complex analysis" on the quality scale because we do not see the value of any "deeper analysis" that prevents readers from doing some of the heavy lifting of forming opinions on their own. Not surprisingly CNN and FOX do not fall into these categories, but since they are so popular we have included them to stay on our mission to expose such partisans to differing opinions. We have also capped the bias rating at halfway through the "Hyper-partisan" category staying within the yellow rectange which is described as "fair interpretations of the news".
 
 
 #### `FLOW`
