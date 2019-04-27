@@ -3,7 +3,7 @@
 
 ### Purpose:
 
-#### Untrending aims to expand readers' perspectives when consuming the news by offering related articles across the bias spectrum.
+#### Untrending aims to expand readers' perspectives when consuming the news by offering related articles across the media bias spectrum.
 
 ### Motivation: 
 
