@@ -1,16 +1,15 @@
-require('dotenv').config();
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const db = require('../models');
+require("dotenv").config({ path: "../.env" });
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const db = require("../models");
 
 passport.serializeUser((user, done) => {
   done(null, user[0].dataValues.googleId);
 });
 
-passport.deserializeUser((id, done) => {
-  db.User.findOne({ where: { googleId: id } }).then(user => {
-    done(null, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  const user = await db.User.findOne({ where: { googleId: id } });
+  done(null, user);
 });
 
 passport.use(
