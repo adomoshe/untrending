@@ -8,8 +8,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await db.User.findOne({ where: { googleId: id } });
-  done(null, user);
+  try {
+    const user = await db.User.findOne({ where: { googleId: id } });
+    done(null, user);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 passport.use(
@@ -39,7 +43,7 @@ passport.use(
           return done(null, user);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   )
