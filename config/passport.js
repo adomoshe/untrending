@@ -39,7 +39,7 @@ passport.use(
           lastname: profile.name.familyName
         }
       })
-        .then((user, err) => {
+        .then((user) => {
           return done(null, user);
         })
         .catch(err => {
