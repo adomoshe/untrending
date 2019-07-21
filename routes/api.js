@@ -1,92 +1,70 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable arrow-parens */
-const router = require('express').Router();
-const db = require('../models/index');
-const newsAPI = require('../app/news-api/news.js');
+const router = require("express").Router();
+const db = require("../models/index");
+const newsAPI = require("../app/news-api/news.js");
 
-router.get('/news/trending', (req, res) => {
-  console.log('Sending trending articles...');
-  newsAPI.v2
-    .topHeadlines({
-      q: '',
-      category: '',
-      language: 'en',
-      country: 'us'
-    })
-    .then(response => {
-      res.json({
-        response
-      });
+router.get("/news/trending", async (req, res) => {
+  try {
+    console.log("Sending trending articles...");
+    const response = await newsAPI.v2.topHeadlines({
+      q: "",
+      category: "",
+      language: "en",
+      country: "us"
     });
+    console.log(response);
+    res.json({ response });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
-router.get('/news/categories', (req, res) => {
-  console.log('Sending articles by category...');
+router.get("/news/categories", async (req, res) => {
+  console.log("Sending articles by category...");
+  const choicesArr = [];
   const articleArr = [];
-  const apiCall = choicesArr => {
-    const apiPromise = new Promise(resolve => {
-      choicesArr.forEach(choice => {
-        newsAPI.v2
-          .topHeadlines({
-            q: '',
-            category: `${choice}`,
-            language: 'en',
-            country: 'us',
-            pageSize: '4',
-            page: '1'
-          })
-          .then(response => {
-            articleArr.push(response.articles);
-            if (choicesArr.length === articleArr.length) {
-              resolve('Success');
-            }
-          });
-      });
-    });
-    apiPromise
-      .then(() => {
-        res.json({ articleArr });
-        console.log('Done');
-      })
-      .catch(reason => {
-        console.log(reason);
-      });
-  };
-  db.Categories.findOne({
+
+  const { dataValues } = await db.Categories.findOne({
     where: { UserId: req.user.id }
-  }).then(data => {
-    const cats = Object.entries(data.dataValues);
-    const choices = [];
-    cats.forEach(([key, cat]) => {
-      if (cat.toString() === 'true') {
-        choices.push(key);
-      }
+  });
+  const categories = Object.entries(dataValues);
+  await categories.forEach(([key, category]) => {
+    if (category.toString() === "true") {
+      choicesArr.push(key);
+    }
+  });
+
+  choicesArr.forEach(async choice => {
+    const { articles } = await newsAPI.v2.topHeadlines({
+      q: "",
+      category: choice,
+      language: "en",
+      country: "us",
+      pageSize: "4",
+      page: "1"
     });
-    apiCall(choices);
+    articleArr.push(articles);
+    if (choicesArr.length === articleArr.length) {
+      res.json({ articleArr });
+    }
   });
 });
 
-router.get('/news/search/:query', (req, res) => {
+router.get("/news/search/:query", async (req, res) => {
   console.log(`Searching articles about ${req.params.query}`);
-  newsAPI.v2
-    .everything({
-      q: req.params.query,
-      sources: '',
-      domains: '',
-      from: '',
-      to: '',
-      language: 'en',
-      sortBy: 'relevancy',
-      page: 1
-    })
-    .then(response => {
-      res.json({
-        response
-      });
-    });
+  const response = await newsAPI.v2.everything({
+    q: req.params.query,
+    sources: "",
+    domains: "",
+    from: "",
+    to: "",
+    language: "en",
+    sortBy: "relevancy",
+    page: 1
+  });
+  res.json({ response });
 });
 
-router.post('/categories', (req, res) => {
+router.post("/categories", (req, res) => {
   if (req.session.passport) {
     const cat = req.body.categories;
     db.Categories.findOrCreate({
@@ -103,19 +81,19 @@ router.post('/categories', (req, res) => {
         UserId: req.user.dataValues.id
       }
     }).then(categories => {
-      if (categories[1] === 'true') {
-        console.log('Created');
-        res.json('Created');
+      if (categories[1] === "true") {
+        console.log("Created");
+        res.json("Created");
       } else {
-        console.log('Found');
+        console.log("Found");
       }
     });
   } else {
-    console.log('Unauthorized access');
+    console.log("Unauthorized access");
   }
 });
 
-router.put('/profile', (req, res) => {
+router.put("/profile", (req, res) => {
   if (req.session.passport && req.user) {
     db.Categories.update(
       {
@@ -132,15 +110,15 @@ router.put('/profile', (req, res) => {
         }
       }
     ).then(() => {
-      res.json('Updated');
+      res.json("Updated");
     });
   } else {
-    console.log('User is not logged in');
+    console.log("User is not logged in");
     res.json(null);
   }
 });
 
-router.delete('/delete-account', (req, res) => {
+router.delete("/delete-account", (req, res) => {
   db.Categories.destroy({
     where: {
       UserId: req.user.dataValues.id
@@ -152,13 +130,13 @@ router.delete('/delete-account', (req, res) => {
       }
     }).then(deletedUser => {
       if (deletedUser === 1 && deletedCategories === 1) {
-        res.json('Deleted User');
+        res.json("Deleted User");
       }
     });
   });
 });
 
-router.get('/user', (req, res) => {
+router.get("/user", (req, res) => {
   if (req.session.passport && req.user) {
     db.Categories.findOne({ where: { UserId: req.user.dataValues.id } }).then(
       categories => {
@@ -169,7 +147,7 @@ router.get('/user', (req, res) => {
       }
     );
   } else {
-    console.log('User is not logged in');
+    console.log("User is not logged in");
     res.json(null);
   }
 });

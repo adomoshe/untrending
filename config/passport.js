@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const db = require("../models");
@@ -24,27 +24,26 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
       passReqToCallback: true
     },
-    (request, accessToken, refreshToken, profile, done) => {
-      db.User.findOrCreate({
-        where: {
-          googleId: profile.id,
-          username: profile.displayName,
-          firstname: profile.name.givenName,
-          lastname: profile.name.familyName
-        },
-        defaults: {
-          googleId: profile.id,
-          username: profile.displayName,
-          firstname: profile.name.givenName,
-          lastname: profile.name.familyName
-        }
-      })
-        .then((user) => {
-          return done(null, user);
-        })
-        .catch(err => {
-          console.error(err);
+    async (req, accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await db.User.findOrCreate({
+          where: {
+            googleId: profile.id,
+            username: profile.displayName,
+            firstname: profile.name.givenName,
+            lastname: profile.name.familyName
+          },
+          defaults: {
+            googleId: profile.id,
+            username: profile.displayName,
+            firstname: profile.name.givenName,
+            lastname: profile.name.familyName
+          }
         });
+        return done(null, user);
+      } catch (error) {
+        console.error(error);
+      }
     }
   )
 );
