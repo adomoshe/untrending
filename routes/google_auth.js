@@ -1,12 +1,12 @@
-const router = require("express").Router();
-const db = require("../models");
-const passport = require("../config/passport");
+const router = require('express').Router();
+const db = require('../models');
+const passport = require('../config/passport');
 
-router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 router.get(
-  "/google/callback",
-  passport.authenticate("google"),
+  '/google/callback',
+  passport.authenticate('google'),
   async (req, res) => {
     const user = await db.User.findOne({
       where: { googleId: req.session.passport.user }
@@ -15,9 +15,9 @@ router.get(
       where: { UserId: user.dataValues.id }
     });
     if (categories) {
-      res.redirect("/");
+      res.redirect('/');
     } else {
-      res.redirect("/signup");
+      res.redirect('/signup');
     }
   }
 );
