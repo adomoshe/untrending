@@ -19,6 +19,24 @@ router.get('/news/trending', async (req, res) => {
   }
 });
 
+router.get('/news/untrending', async (req, res) => {
+  try {
+    console.log('Sending Untrending articles...');
+    const response = await newsAPI.v2.everything({
+      q: '',
+      sources: '',
+      category: '',
+      sortBy: 'relevancy',
+      pageSize: 5,
+      language: 'en'
+    });
+    console.log(response);
+    res.json({ response });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 router.get('/news/categories', isAuthenticated, async (req, res) => {
   console.log('Sending articles by category...');
   const choicesArr = [];
@@ -29,9 +47,7 @@ router.get('/news/categories', isAuthenticated, async (req, res) => {
   });
   const categories = Object.entries(dataValues);
   await categories.forEach(([key, category]) => {
-    if (category.toString() === 'true') {
-      choicesArr.push(key);
-    }
+    if (category === 'true') choicesArr.push(key);
   });
 
   choicesArr.forEach(async choice => {
