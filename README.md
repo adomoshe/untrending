@@ -13,9 +13,9 @@ Untrending is built to reverse exactly that effect. Here, users will be offered 
 
 ### Team:
 
-**Sherrie Lin** Front-end development, UIUX design
+**Sherrie Lin and Albert Shay** Front-end development, UIUX design
 <br>
-**Ado Moshe** Back-end development
+**Ado Moshe and Albert Shay ** Back-end development
 
 ### News Ranking:
 
